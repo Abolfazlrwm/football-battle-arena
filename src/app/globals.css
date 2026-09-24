@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/*
+  Football Battle Arena — base tokens (Phase 01)
+  ------------------------------------------------
+  This is a foundation only: deep dark base + the two type families.
+  The full token system (accent-per-team, buttons, cards, shadows,
+  gradients, radii) is built out in Phase 02 — Design System.
+*/
+
+:root {
+  --arena-black: #07070a;
+  --arena-charcoal: #121218;
+  --arena-navy: #0b1220;
+  --arena-fog: #f4f5f7;
+  --arena-mist: #9aa0ac;
+  --arena-accent: #4f7cff;
+
+  --font-display: "Big Shoulders Display", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-arena-black: var(--arena-black);
+  --color-arena-charcoal: var(--arena-charcoal);
+  --color-arena-navy: var(--arena-navy);
+  --color-arena-fog: var(--arena-fog);
+  --color-arena-mist: var(--arena-mist);
+  --color-arena-accent: var(--arena-accent);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--arena-black);
+  color: var(--arena-fog);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
