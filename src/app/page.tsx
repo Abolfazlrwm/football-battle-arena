@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
-      <p className="text-label text-arena-mist">Phase 02 — Design system</p>
+      <p className="text-label text-arena-mist">Phase 03 — Navigation</p>
       <h1 className="text-display-2xl">
         FOOTBALL
         <br />
