@@ -1,35 +1,216 @@
 @import "tailwindcss";
 
 /*
-  Football Battle Arena — base tokens (Phase 01)
-  ------------------------------------------------
-  This is a foundation only: deep dark base + the two type families.
-  The full token system (accent-per-team, buttons, cards, shadows,
-  gradients, radii) is built out in Phase 02 — Design System.
+  Football Battle Arena — Design System (Phase 02)
+  ==================================================
+  Token layers, in order:
+    1. Raw values      (:root)          — the actual colors/sizes
+    2. Tailwind bridge  (@theme inline)   — exposes tokens as utilities
+       (bg-arena-charcoal, text-body-lg, rounded-lg, shadow-card, ...)
+    3. Accent overrides ([data-accent])   — team-swappable accent, see below
+    4. Base element rules                 — html/body/heading defaults
+    5. Gradient + utility classes         — things Tailwind has no
+       first-class namespace for (vignettes, glows, containers)
+
+  ACCENT ARCHITECTURE
+  --------------------
+  --accent / --accent-strong / --accent-soft / --accent-contrast are the
+  only four values a future team selector needs to touch. They're plain
+  CSS custom properties, so any ancestor element can override them by
+  setting a `data-accent="<key>"` attribute (or, once real team data
+  exists in Phase 04, inline custom properties per team) — every
+  component that uses bg-accent / text-accent / border-accent picks up
+  the change instantly via the cascade, no JS re-render required.
+  Three example palettes below (ember / glacier / verdant) prove the
+  mechanism; they are placeholders, not team colors.
 */
 
 :root {
-  --arena-black: #07070a;
-  --arena-charcoal: #121218;
-  --arena-navy: #0b1220;
-  --arena-fog: #f4f5f7;
-  --arena-mist: #9aa0ac;
-  --arena-accent: #4f7cff;
+  /* ---- Surfaces (dark layers) ---- */
+  --arena-black: #07070a;   /* page background */
+  --arena-charcoal: #121218; /* raised surface: cards, panels */
+  --arena-navy: #0b1220;     /* alternate surface: stat/tinted panels */
+  --arena-charcoal-raised: #191a22; /* one step above charcoal: hovered/nested cards */
 
+  /* ---- Text ---- */
+  --arena-fog: #f4f5f7;   /* primary text */
+  --arena-mist: #9aa0ac;  /* secondary text */
+  --arena-smoke: #5b6270; /* tertiary text / placeholders */
+
+  /* ---- Lines ---- */
+  --arena-line: rgba(244, 245, 247, 0.08);
+  --arena-line-strong: rgba(244, 245, 247, 0.16);
+
+  /* ---- Accent (default "house" accent; teams override in later phases) ---- */
+  --accent: #4f7cff;
+  --accent-strong: #82a2ff;
+  --accent-soft: rgba(79, 124, 255, 0.14);
+  --accent-contrast: #04070f;
+
+  /* ---- Type families ---- */
   --font-display: "Big Shoulders Display", ui-sans-serif, system-ui, sans-serif;
   --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Type scale: display (Big Shoulders Display) ---- */
+  --text-display-2xl: 4.75rem;
+  --text-display-2xl--line-height: 0.92;
+  --text-display-2xl--letter-spacing: -0.02em;
+  --text-display-2xl--font-weight: 800;
+
+  --text-display-xl: 3.5rem;
+  --text-display-xl--line-height: 0.96;
+  --text-display-xl--letter-spacing: -0.015em;
+  --text-display-xl--font-weight: 800;
+
+  --text-display-lg: 2.5rem;
+  --text-display-lg--line-height: 1.02;
+  --text-display-lg--letter-spacing: -0.01em;
+  --text-display-lg--font-weight: 700;
+
+  --text-display-md: 1.75rem;
+  --text-display-md--line-height: 1.08;
+  --text-display-md--letter-spacing: -0.005em;
+  --text-display-md--font-weight: 700;
+
+  --text-display-sm: 1.25rem;
+  --text-display-sm--line-height: 1.15;
+  --text-display-sm--font-weight: 700;
+
+  /* ---- Type scale: body (IBM Plex Sans) ---- */
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.7;
+  --text-body-lg--font-weight: 400;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-body--font-weight: 400;
+
+  --text-body-sm: 0.9375rem;
+  --text-body-sm--line-height: 1.6;
+  --text-body-sm--font-weight: 400;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.5;
+  --text-caption--font-weight: 500;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.4;
+  --text-label--font-weight: 600;
+  --text-label--letter-spacing: 0.03em;
+
+  /* ---- Radius: varies by elevation, not uniform ---- */
+  --radius-sm: 0.375rem;  /* controls: buttons, inputs, badges */
+  --radius-md: 0.75rem;   /* cards */
+  --radius-lg: 1.25rem;   /* large panels, hero visuals */
+  --radius-xl: 1.75rem;   /* full-bleed cinematic panels */
+
+  /* ---- Shadows: dark elevation (inset highlight + soft drop), not grey ---- */
+  --shadow-card: inset 0 1px 0 0 rgba(244, 245, 247, 0.05),
+    0 24px 48px -28px rgba(0, 0, 0, 0.7);
+  --shadow-elevated: inset 0 1px 0 0 rgba(244, 245, 247, 0.07),
+    0 32px 64px -24px rgba(0, 0, 0, 0.8);
+  --shadow-glow-accent: 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent),
+    0 16px 32px -10px color-mix(in oklab, var(--accent) 55%, transparent);
+}
+
+/* Example accent palettes — placeholders proving the swap mechanism.
+   Real per-team accents arrive with the team data model (Phase 04+). */
+[data-accent="ember"] {
+  --accent: #ff5a36;
+  --accent-strong: #ff8a63;
+  --accent-soft: rgba(255, 90, 54, 0.14);
+  --accent-contrast: #170502;
+}
+[data-accent="glacier"] {
+  --accent: #5fd0ff;
+  --accent-strong: #9be6ff;
+  --accent-soft: rgba(95, 208, 255, 0.14);
+  --accent-contrast: #02131a;
+}
+[data-accent="verdant"] {
+  --accent: #4ade80;
+  --accent-strong: #86efac;
+  --accent-soft: rgba(74, 222, 128, 0.14);
+  --accent-contrast: #04140a;
 }
 
 @theme inline {
+  /* Colors -> bg-arena-black, text-arena-fog, border-arena-line, bg-accent, ... */
   --color-arena-black: var(--arena-black);
   --color-arena-charcoal: var(--arena-charcoal);
+  --color-arena-charcoal-raised: var(--arena-charcoal-raised);
   --color-arena-navy: var(--arena-navy);
   --color-arena-fog: var(--arena-fog);
   --color-arena-mist: var(--arena-mist);
-  --color-arena-accent: var(--arena-accent);
+  --color-arena-smoke: var(--arena-smoke);
+  --color-arena-line: var(--arena-line);
+  --color-arena-line-strong: var(--arena-line-strong);
 
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+
+  /* Fonts -> font-display, font-body */
   --font-display: var(--font-display);
   --font-body: var(--font-body);
+
+  /* Type scale -> text-display-2xl ... text-label */
+  --text-display-2xl: var(--text-display-2xl);
+  --text-display-2xl--line-height: var(--text-display-2xl--line-height);
+  --text-display-2xl--letter-spacing: var(--text-display-2xl--letter-spacing);
+  --text-display-2xl--font-weight: var(--text-display-2xl--font-weight);
+
+  --text-display-xl: var(--text-display-xl);
+  --text-display-xl--line-height: var(--text-display-xl--line-height);
+  --text-display-xl--letter-spacing: var(--text-display-xl--letter-spacing);
+  --text-display-xl--font-weight: var(--text-display-xl--font-weight);
+
+  --text-display-lg: var(--text-display-lg);
+  --text-display-lg--line-height: var(--text-display-lg--line-height);
+  --text-display-lg--letter-spacing: var(--text-display-lg--letter-spacing);
+  --text-display-lg--font-weight: var(--text-display-lg--font-weight);
+
+  --text-display-md: var(--text-display-md);
+  --text-display-md--line-height: var(--text-display-md--line-height);
+  --text-display-md--letter-spacing: var(--text-display-md--letter-spacing);
+  --text-display-md--font-weight: var(--text-display-md--font-weight);
+
+  --text-display-sm: var(--text-display-sm);
+  --text-display-sm--line-height: var(--text-display-sm--line-height);
+  --text-display-sm--font-weight: var(--text-display-sm--font-weight);
+
+  --text-body-lg: var(--text-body-lg);
+  --text-body-lg--line-height: var(--text-body-lg--line-height);
+  --text-body-lg--font-weight: var(--text-body-lg--font-weight);
+
+  --text-body: var(--text-body);
+  --text-body--line-height: var(--text-body--line-height);
+  --text-body--font-weight: var(--text-body--font-weight);
+
+  --text-body-sm: var(--text-body-sm);
+  --text-body-sm--line-height: var(--text-body-sm--line-height);
+  --text-body-sm--font-weight: var(--text-body-sm--font-weight);
+
+  --text-caption: var(--text-caption);
+  --text-caption--line-height: var(--text-caption--line-height);
+  --text-caption--font-weight: var(--text-caption--font-weight);
+
+  --text-label: var(--text-label);
+  --text-label--line-height: var(--text-label--line-height);
+  --text-label--font-weight: var(--text-label--font-weight);
+  --text-label--letter-spacing: var(--text-label--letter-spacing);
+
+  /* Radius -> rounded-sm, rounded-md, rounded-lg, rounded-xl */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  /* Shadows -> shadow-card, shadow-elevated, shadow-glow-accent */
+  --shadow-card: var(--shadow-card);
+  --shadow-elevated: var(--shadow-elevated);
+  --shadow-glow-accent: var(--shadow-glow-accent);
 }
 
 html {
@@ -47,7 +228,69 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: -0.01em;
+}
+
+/* Consistent, visible focus ring everywhere — accent-colored, never removed. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* ---- Gradient + layout utilities (no Tailwind namespace for these) ---- */
+
+.bg-arena-vignette {
+  background: radial-gradient(
+    120% 120% at 50% 20%,
+    transparent 0%,
+    rgba(7, 7, 10, 0.45) 55%,
+    rgba(7, 7, 10, 0.96) 100%
+  );
+}
+
+.bg-arena-panel {
+  background: linear-gradient(
+    180deg,
+    var(--arena-charcoal) 0%,
+    color-mix(in oklab, var(--arena-charcoal) 65%, black) 100%
+  );
+}
+
+.bg-accent-glow {
+  background: radial-gradient(
+    60% 60% at 50% 50%,
+    color-mix(in oklab, var(--accent) 38%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+.arena-container,
+.arena-container-wide,
+.arena-container-narrow {
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  width: 100%;
+}
+.arena-container {
+  max-width: 75rem; /* 1200px */
+}
+.arena-container-wide {
+  max-width: 90rem; /* 1440px */
+}
+.arena-container-narrow {
+  max-width: 45rem; /* 720px */
+}
+@media (min-width: 768px) {
+  .arena-container,
+  .arena-container-wide,
+  .arena-container-narrow {
+    padding-inline: 2rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
