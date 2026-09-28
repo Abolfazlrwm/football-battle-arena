@@ -293,6 +293,24 @@ h4 {
   }
 }
 
+/* Hides scrollbars on horizontally-scrolling strips (team selector) while
+   keeping them keyboard/wheel/touch scrollable. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Very faint stadium-floodlight dot grid — used behind the hero captain
+   panel. Kept subtle on purpose (see Phase 05 notes on avoiding
+   "gamey" effects): a texture, not a pattern you're meant to notice. */
+.bg-arena-texture {
+  background-image: radial-gradient(rgba(244, 245, 247, 0.5) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
