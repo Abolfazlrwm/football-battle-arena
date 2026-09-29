@@ -26,9 +26,12 @@ function placeholderUrl(
   foreground: string,
   label: string
 ) {
+  // .png: placehold.co defaults to SVG, which next/image blocks by
+  // default for security. Requesting a raster format keeps image
+  // optimization fully enabled without loosening that setting.
   return `${PLACEHOLDER_HOST}/${width}x${height}/${hex(background)}/${hex(
     foreground
-  )}?text=${encodeURIComponent(label)}&font=roboto`;
+  )}.png?text=${encodeURIComponent(label)}&font=roboto`;
 }
 
 type TeamColorSource = Pick<Team, "shortName" | "colors">;
