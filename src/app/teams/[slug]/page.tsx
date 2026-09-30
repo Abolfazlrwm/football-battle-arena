@@ -25,7 +25,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const team = getTeamBySlug(slug);
   if (!team) return {};
-  return { title: team.name, description: team.description };
+  return {
+    title: team.name,
+    description: team.description,
+    openGraph: { title: team.name, description: team.description },
+  };
 }
 
 export default async function TeamDetailPage({

@@ -26,9 +26,12 @@ export async function generateMetadata({
   if (!battle) return {};
   const teamA = getTeamById(battle.teamAId);
   const teamB = getTeamById(battle.teamBId);
+  const title = `${teamA?.name} vs ${teamB?.name}`;
+  const description = `${battle.tagline} — a Football Battle Arena comparison.`;
   return {
-    title: `${teamA?.name} vs ${teamB?.name}`,
-    description: `${battle.tagline} — a Football Battle Arena comparison.`,
+    title,
+    description,
+    openGraph: { title, description },
   };
 }
 
@@ -103,6 +106,9 @@ export default async function BattleDetailPage({
               ← All Battles
             </Link>
           </div>
+          <h1 className="sr-only">
+            {teamA.name} vs {teamB.name}
+          </h1>
           <div className="grid grid-cols-1 items-center gap-10 pb-16 lg:grid-cols-[1fr_auto_1fr] lg:gap-12 lg:pb-24">
             <TeamSide team={teamA} captain={captainA} align="end" />
             <div className="flex flex-col items-center gap-2">

@@ -24,7 +24,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const captain = getCaptainBySlug(slug);
   if (!captain) return {};
-  return { title: captain.name, description: captain.bio };
+  return {
+    title: captain.name,
+    description: captain.bio,
+    openGraph: { title: captain.name, description: captain.bio },
+  };
 }
 
 export default async function CaptainDetailPage({
