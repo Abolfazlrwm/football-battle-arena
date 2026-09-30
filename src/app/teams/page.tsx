@@ -8,7 +8,13 @@ export const metadata: Metadata = {
   description: "Browse all clubs in the Football Battle Arena — twelve teams across five leagues.",
 };
 
-export default function TeamsPage() {
+export default async function TeamsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ league?: string }>;
+}) {
+  const { league } = await searchParams;
+
   return (
     <main className="py-16 lg:py-20">
       <Container>
@@ -17,7 +23,7 @@ export default function TeamsPage() {
         <p className="mt-3 max-w-xl text-body-lg text-arena-mist">
           Twelve clubs, five leagues. Search by name or filter by league to find your team.
         </p>
-        <TeamsDirectory teams={teams} />
+        <TeamsDirectory teams={teams} initialLeague={league} />
       </Container>
     </main>
   );

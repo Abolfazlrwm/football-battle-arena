@@ -8,6 +8,8 @@ import "@fontsource/ibm-plex-sans/500";
 import "@fontsource/ibm-plex-sans/600";
 import "./globals.css";
 import { Navbar } from "@/components/navigation/navbar";
+import { Footer } from "@/components/layout/footer";
+import { SearchProvider } from "@/components/search/search-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -22,8 +24,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-arena-black text-arena-fog">
-        <Navbar />
-        {children}
+        <SearchProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </SearchProvider>
       </body>
     </html>
   );
