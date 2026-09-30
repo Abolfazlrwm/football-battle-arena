@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "@fontsource/big-shoulders-display/600";
 import "@fontsource/big-shoulders-display/700";
 import "@fontsource/big-shoulders-display/800";
@@ -11,13 +11,36 @@ import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SearchProvider } from "@/components/search/search-provider";
 
+// Set NEXT_PUBLIC_SITE_URL once deployed (see .env.example) — it's what
+// Open Graph tags, canonical links, robots.txt, and sitemap.xml resolve
+// against. Falls back to localhost so local builds still work.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteTitle = "Football Battle Arena";
+const siteDescription =
+  "Choose your team, meet its captain, and enter the arena. A cinematic football team universe.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Football Battle Arena",
+    default: siteTitle,
     template: "Football Battle Arena — %s",
   },
-  description:
-    "Choose your team, meet its captain, and enter the arena. A cinematic football team universe.",
+  description: siteDescription,
+  openGraph: {
+    type: "website",
+    siteName: siteTitle,
+    title: siteTitle,
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#07070a",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
