@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Search, X } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { buttonStyles } from "@/components/ui/button";
+import { useSearch } from "@/components/search/search-provider";
 import { cx } from "@/lib/cx";
 import { navLinks } from "./nav-links";
 import { NavLink } from "./nav-link";
@@ -16,6 +17,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const search = useSearch();
 
   // Close the mobile panel on route change. Adjusting state during render
   // (rather than in an effect) is the recommended pattern for "reset on
@@ -79,10 +81,14 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              aria-label="Search"
-              className="hidden h-9 w-9 items-center justify-center rounded-sm text-arena-mist transition-colors hover:bg-arena-charcoal hover:text-arena-fog sm:flex"
+              onClick={search.open}
+              aria-label="Search (Ctrl+K)"
+              className="hidden h-9 items-center gap-2 rounded-sm px-2.5 text-arena-mist transition-colors hover:bg-arena-charcoal hover:text-arena-fog sm:flex"
             >
               <Search size={18} strokeWidth={1.75} />
+              <kbd className="hidden rounded-sm border border-arena-line px-1.5 py-0.5 font-body text-caption text-arena-smoke lg:inline">
+                Ctrl K
+              </kbd>
             </button>
 
             <Link

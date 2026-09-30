@@ -7,9 +7,17 @@ import { TeamCard } from "./team-card";
 
 const LEAGUES = ["All", "Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1"] as const;
 
-export function TeamsDirectory({ teams }: { teams: Team[] }) {
+export function TeamsDirectory({
+  teams,
+  initialLeague,
+}: {
+  teams: Team[];
+  initialLeague?: string;
+}) {
   const [query, setQuery] = useState("");
-  const [league, setLeague] = useState<(typeof LEAGUES)[number]>("All");
+  const [league, setLeague] = useState<(typeof LEAGUES)[number]>(
+    (LEAGUES as readonly string[]).includes(initialLeague ?? "") ? (initialLeague as (typeof LEAGUES)[number]) : "All"
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
