@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import type { Team } from "@/types";
 import { cx } from "@/lib/cx";
+import { TeamCrest } from "@/components/teams/team-crest";
 
 /**
  * Horizontal, always-scrollable strip (see the master spec's TEAM
@@ -43,14 +43,7 @@ export function TeamSelector({
                   : "border-arena-line bg-transparent hover:border-arena-line-strong hover:bg-arena-charcoal"
               )}
             >
-              <Image
-                src={team.logo}
-                alt=""
-                aria-hidden="true"
-                width={32}
-                height={32}
-                className="h-8 w-8 shrink-0 rounded-sm"
-              />
+              <TeamCrest team={team} size={32} className="shrink-0" />
               <span className="text-left">
                 <span
                   className={cx(

@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import type { Captain, Team } from "@/types";
 import { getCaptainByTeamId } from "@/data/captains";
 import { buildAccentVars } from "@/lib/color";
 import { cx } from "@/lib/cx";
+import { TeamCrest } from "@/components/teams/team-crest";
 import { ComparisonRow } from "./comparison-row";
+import { VerdictBanner } from "./verdict-banner";
 
 function TeamPicker({
   teams,
@@ -53,7 +54,7 @@ function TeamSummary({
   return (
     <div className={cx("flex flex-col gap-2", align === "right" ? "items-end text-right" : "items-start text-left")}>
       <div className={cx("flex items-center gap-3", align === "right" && "flex-row-reverse")}>
-        <Image src={team.logo} alt="" width={40} height={40} className="h-10 w-10 rounded-sm" />
+        <TeamCrest team={team} size={40} />
         <p className="text-display-sm uppercase">{team.shortName}</p>
       </div>
       {captain && <p className="text-body-sm text-arena-mist">{captain.name}</p>}
@@ -94,7 +95,11 @@ export function BattleComparator({
         <TeamSummary team={teamB} captain={captainB} align="left" />
       </div>
 
-      <div className="mt-10 flex flex-col gap-5">
+      <div className="mt-8">
+        <VerdictBanner teamA={teamA} teamB={teamB} accentA={accentA} accentB={accentB} />
+      </div>
+
+      <div className="mt-8 flex flex-col gap-5">
         <ComparisonRow label="Overall" aValue={teamA.stats.overall} bValue={teamB.stats.overall} accentA={accentA} accentB={accentB} />
         <ComparisonRow label="Attack" aValue={teamA.stats.attack} bValue={teamB.stats.attack} accentA={accentA} accentB={accentB} />
         <ComparisonRow label="Midfield" aValue={teamA.stats.midfield} bValue={teamB.stats.midfield} accentA={accentA} accentB={accentB} />

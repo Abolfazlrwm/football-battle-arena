@@ -36,6 +36,14 @@ function placeholderUrl(
 
 type TeamColorSource = Pick<Team, "shortName" | "colors">;
 
+/**
+ * Raster placeholder for `Team.logo`. Nothing in the UI reads this
+ * anymore — every on-screen crest renders through the original vector
+ * <TeamCrest> component instead (see src/components/teams/team-crest.tsx),
+ * since that avoids both the external image request and any real club
+ * crest. This stays available for contexts that need a flat image URL
+ * rather than a React component (e.g. a future OG-image or favicon).
+ */
 export function teamLogoImage(team: TeamColorSource): string {
   return placeholderUrl(256, 256, team.colors.primary, team.colors.secondary, team.shortName);
 }
