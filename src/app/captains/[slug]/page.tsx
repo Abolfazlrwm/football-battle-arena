@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StatBar } from "@/components/ui/stat-bar";
 import { buttonStyles } from "@/components/ui/button";
+import { TeamCrest } from "@/components/teams/team-crest";
 
 export function generateStaticParams() {
   return captains.map((c) => ({ slug: c.slug }));
@@ -91,13 +92,10 @@ export default async function CaptainDetailPage({
               />
               <div aria-hidden className="bg-arena-vignette absolute inset-0" />
               <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-6">
-                <Image
-                  src={team.logo}
-                  alt=""
-                  aria-hidden="true"
-                  width={40}
-                  height={40}
-                  className="h-10 w-10 shrink-0 rounded-sm border border-arena-line-strong"
+                <TeamCrest
+                  team={team}
+                  size={40}
+                  className="shrink-0 rounded-sm border border-arena-line-strong"
                 />
                 <p className="text-body-sm text-arena-mist">{team.name}</p>
               </div>
@@ -128,12 +126,10 @@ export default async function CaptainDetailPage({
             <Card>
               <p className="text-label text-arena-mist">Club</p>
               <div className="mt-3 flex items-center gap-3">
-                <Image
-                  src={team.logo}
-                  alt=""
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 rounded-md border border-arena-line-strong"
+                <TeamCrest
+                  team={team}
+                  size={48}
+                  className="rounded-md border border-arena-line-strong"
                 />
                 <div>
                   <p className="text-display-sm">{team.shortName}</p>

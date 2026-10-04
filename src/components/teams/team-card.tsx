@@ -5,6 +5,7 @@ import type { Team } from "@/types";
 import { getCaptainByTeamId } from "@/data/captains";
 import { buildAccentVars } from "@/lib/color";
 import { Badge } from "@/components/ui/badge";
+import { TeamCrest } from "./team-crest";
 
 /**
  * Reused across the homepage's Featured Teams strip, the /teams
@@ -43,13 +44,10 @@ export function TeamCard({ team }: { team: Team }) {
 
       <div className="absolute inset-x-0 bottom-0 p-4">
         <div className="flex items-center gap-2.5">
-          <Image
-            src={team.logo}
-            alt=""
-            aria-hidden="true"
-            width={28}
-            height={28}
-            className="h-7 w-7 shrink-0 rounded-sm border border-arena-line-strong"
+          <TeamCrest
+            team={team}
+            size={28}
+            className="shrink-0 rounded-sm border border-arena-line-strong"
           />
           <div className="min-w-0">
             <p className="truncate text-body font-semibold text-arena-fog">{team.shortName}</p>

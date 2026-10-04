@@ -9,6 +9,8 @@ import { buildAccentVars } from "@/lib/color";
 import { Container } from "@/components/ui/container";
 import { buttonStyles } from "@/components/ui/button";
 import { ComparisonRow } from "@/components/battles/comparison-row";
+import { VerdictBanner } from "@/components/battles/verdict-banner";
+import { TeamCrest } from "@/components/teams/team-crest";
 import { cx } from "@/lib/cx";
 import type { Captain, Team } from "@/types";
 
@@ -51,11 +53,9 @@ function TeamSide({
         align === "end" ? "lg:items-end lg:text-right" : "lg:items-start lg:text-left"
       )}
     >
-      <Image
-        src={team.logo}
-        alt={team.name}
-        width={80}
-        height={80}
+      <TeamCrest
+        team={team}
+        size={80}
         className="h-16 w-16 rounded-md border border-arena-line-strong sm:h-20 sm:w-20"
       />
       <div>
@@ -123,6 +123,9 @@ export default async function BattleDetailPage({
       <Container size="narrow">
         <div className="py-14">
           <h2 className="text-center text-display-md">Head to Head</h2>
+          <div className="mt-6">
+            <VerdictBanner teamA={teamA} teamB={teamB} accentA={accentA} accentB={accentB} />
+          </div>
           <div className="mt-8 flex flex-col gap-5">
             <ComparisonRow label="Overall" aValue={teamA.stats.overall} bValue={teamB.stats.overall} accentA={accentA} accentB={accentB} />
             <ComparisonRow label="Attack" aValue={teamA.stats.attack} bValue={teamB.stats.attack} accentA={accentA} accentB={accentB} />
