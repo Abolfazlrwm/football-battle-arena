@@ -12,6 +12,7 @@ import { Card } from "@/components/ui/card";
 import { StatBar } from "@/components/ui/stat-bar";
 import { buttonStyles } from "@/components/ui/button";
 import { TeamCard } from "@/components/teams/team-card";
+import { TeamCrest } from "@/components/teams/team-crest";
 
 export function generateStaticParams() {
   return teams.map((t) => ({ slug: t.slug }));
@@ -53,11 +54,9 @@ export default async function TeamDetailPage({
         <Container size="wide">
           <div className="flex flex-col gap-6 py-14 lg:flex-row lg:items-end lg:justify-between lg:py-20">
             <div className="flex items-center gap-5">
-              <Image
-                src={team.logo}
-                alt=""
-                width={72}
-                height={72}
+              <TeamCrest
+                team={team}
+                size={72}
                 className="h-16 w-16 rounded-md border border-arena-line-strong sm:h-[72px] sm:w-[72px]"
               />
               <div>

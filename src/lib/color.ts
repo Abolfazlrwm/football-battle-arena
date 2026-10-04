@@ -128,6 +128,11 @@ function pickAccentBase(colors: TeamColors): string {
   return lifted;
 }
 
+/** Readable text color (near-black or white) to place on a solid `hex` fill. */
+export function contrastColor(hex: string): string {
+  return luminance(hex) > 0.55 ? "#04070f" : "#ffffff";
+}
+
 export interface AccentVars {
   "--accent": string;
   "--accent-strong": string;
@@ -148,6 +153,6 @@ export function buildAccentVars(colors: TeamColors): AccentVars {
     "--accent": accent,
     "--accent-strong": adjustLightness(accent, isLight ? -10 : 12),
     "--accent-soft": withAlpha(accent, 0.14),
-    "--accent-contrast": luminance(accent) > 0.55 ? "#04070f" : "#ffffff",
+    "--accent-contrast": contrastColor(accent),
   };
 }

@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { RankingEntry, RankingRegion, Team } from "@/types";
 import { cx } from "@/lib/cx";
+import { TeamCrest } from "@/components/teams/team-crest";
 
 const REGIONS: Array<RankingRegion | "All"> = ["All", "England", "Spain", "Germany", "Italy", "France"];
 
@@ -63,7 +63,7 @@ export function RankingsTable({ rankings, teams }: { rankings: RankingEntry[]; t
                       href={`/teams/${team.slug}`}
                       className="flex items-center gap-3 text-body-sm text-arena-fog hover:text-accent"
                     >
-                      <Image src={team.logo} alt="" width={24} height={24} className="h-6 w-6 rounded-sm" />
+                      <TeamCrest team={team} size={24} />
                       {team.name}
                     </Link>
                   </td>
