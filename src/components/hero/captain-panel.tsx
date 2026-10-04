@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Captain, Team } from "@/types";
+import { TeamCrest } from "@/components/teams/team-crest";
 
 /**
  * The captain image treatment: rounded panel, cover-fit image, a
@@ -29,13 +30,10 @@ export function CaptainPanel({ team, captain }: { team: Team; captain: Captain }
         <div aria-hidden className="bg-arena-vignette absolute inset-0" />
 
         <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-6">
-          <Image
-            src={team.logo}
-            alt=""
-            aria-hidden="true"
-            width={40}
-            height={40}
-            className="h-10 w-10 shrink-0 rounded-sm border border-arena-line-strong"
+          <TeamCrest
+            team={team}
+            size={40}
+            className="shrink-0 rounded-sm border border-arena-line-strong"
           />
           <div className="min-w-0">
             <p className="truncate text-display-sm text-arena-fog">{captain.name}</p>
