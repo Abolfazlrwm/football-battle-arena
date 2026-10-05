@@ -8,6 +8,7 @@ import { cx } from "@/lib/cx";
 import { TeamCrest } from "@/components/teams/team-crest";
 import { ComparisonRow } from "./comparison-row";
 import { VerdictBanner } from "./verdict-banner";
+import { MatchSimulator } from "./match-simulator";
 
 function TeamPicker({
   teams,
@@ -97,6 +98,10 @@ export function BattleComparator({
 
       <div className="mt-8">
         <VerdictBanner teamA={teamA} teamB={teamB} accentA={accentA} accentB={accentB} />
+      </div>
+
+      <div className="mt-8">
+        <MatchSimulator key={`${teamA.id}-${teamB.id}`} teamA={teamA} teamB={teamB} accentA={accentA} accentB={accentB} />
       </div>
 
       <div className="mt-8 flex flex-col gap-5">
