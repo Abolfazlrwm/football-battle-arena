@@ -50,7 +50,7 @@ export function TeamCrest({
         x="50"
         y="60"
         textAnchor="middle"
-        fontFamily="var(--font-display), ui-sans-serif, sans-serif"
+        style={{ fontFamily: "var(--font-display), ui-sans-serif, sans-serif" }}
         fontWeight="800"
         fontSize="32"
         fill={textColor}

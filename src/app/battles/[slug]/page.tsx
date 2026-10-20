@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { battles, getBattleBySlug } from "@/data/battles";
@@ -11,7 +10,9 @@ import { buttonStyles } from "@/components/ui/button";
 import { ComparisonRow } from "@/components/battles/comparison-row";
 import { VerdictBanner } from "@/components/battles/verdict-banner";
 import { MatchSimulator } from "@/components/battles/match-simulator";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
+import { FormationPitch } from "@/components/teams/formation-pitch";
+import { CaptainAvatar } from "@/components/captains/captain-avatar";
 import { cx } from "@/lib/cx";
 import type { Captain, Team } from "@/types";
 
@@ -54,10 +55,10 @@ function TeamSide({
         align === "end" ? "lg:items-end lg:text-right" : "lg:items-start lg:text-left"
       )}
     >
-      <TeamCrest
+      <TeamLogo
         team={team}
         size={80}
-        className="h-16 w-16 rounded-md border border-arena-line-strong sm:h-20 sm:w-20"
+        className="h-16 w-16 drop-shadow-[0_4px_14px_rgba(0,0,0,0.55)] sm:h-20 sm:w-20"
       />
       <div>
         <p className="text-display-md uppercase">{team.shortName}</p>
@@ -65,7 +66,7 @@ function TeamSide({
       </div>
       {captain && (
         <div className="flex items-center gap-2 rounded-sm border border-arena-line bg-arena-charcoal px-3 py-2">
-          <Image src={captain.image} alt="" width={28} height={28} className="h-7 w-7 rounded-sm object-cover" />
+          <CaptainAvatar captain={captain} team={team} size={28} />
           <span className="text-body-sm text-arena-fog">{captain.name}</span>
         </div>
       )}
@@ -157,6 +158,19 @@ export default async function BattleDetailPage({
           </div>
         </div>
       </Container>
+
+      <section className="border-t border-arena-line py-14">
+        <Container>
+          <h2 className="text-center text-display-md">Tactical Shapes</h2>
+          <p className="mx-auto mt-2 max-w-md text-center text-body-sm text-arena-mist">
+            How each side lines up — signature formations, with each captain on his line.
+          </p>
+          <div className="mx-auto mt-8 grid max-w-3xl gap-6 sm:grid-cols-2">
+            <FormationPitch team={teamA} captain={captainA} />
+            <FormationPitch team={teamB} captain={captainB} />
+          </div>
+        </Container>
+      </section>
     </main>
   );
 }

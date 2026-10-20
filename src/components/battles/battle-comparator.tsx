@@ -5,7 +5,7 @@ import type { Captain, Team } from "@/types";
 import { getCaptainByTeamId } from "@/data/captains";
 import { buildAccentVars } from "@/lib/color";
 import { cx } from "@/lib/cx";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
 import { ComparisonRow } from "./comparison-row";
 import { VerdictBanner } from "./verdict-banner";
 import { MatchSimulator } from "./match-simulator";
@@ -55,10 +55,11 @@ function TeamSummary({
   return (
     <div className={cx("flex flex-col gap-2", align === "right" ? "items-end text-right" : "items-start text-left")}>
       <div className={cx("flex items-center gap-3", align === "right" && "flex-row-reverse")}>
-        <TeamCrest team={team} size={40} />
+        <TeamLogo team={team} size={40} />
         <p className="text-display-sm uppercase">{team.shortName}</p>
       </div>
       {captain && <p className="text-body-sm text-arena-mist">{captain.name}</p>}
+      <p className="text-caption text-arena-smoke">Formation {team.formation}</p>
     </div>
   );
 }

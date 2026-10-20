@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { RankingEntry, RankingRegion, Team } from "@/types";
 import { cx } from "@/lib/cx";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
 
 const REGIONS: Array<RankingRegion | "All"> = ["All", "England", "Spain", "Germany", "Italy", "France"];
 
@@ -63,7 +63,7 @@ export function RankingsTable({ rankings, teams }: { rankings: RankingEntry[]; t
                       href={`/teams/${team.slug}`}
                       className="flex items-center gap-3 text-body-sm text-arena-fog hover:text-accent"
                     >
-                      <TeamCrest team={team} size={24} />
+                      <TeamLogo team={team} size={24} />
                       {team.name}
                     </Link>
                   </td>

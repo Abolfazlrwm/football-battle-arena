@@ -4,7 +4,7 @@ export type BadgeVariant = "neutral" | "accent" | "outline";
 
 const variants: Record<BadgeVariant, string> = {
   neutral: "bg-arena-charcoal-raised text-arena-mist border border-arena-line",
-  accent: "bg-accent-soft text-accent border border-transparent",
+  accent: "bg-accent-soft text-accent-readable border border-transparent",
   outline: "bg-transparent text-arena-fog border border-arena-line-strong",
 };
 

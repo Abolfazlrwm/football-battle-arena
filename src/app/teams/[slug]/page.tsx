@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
@@ -12,7 +11,9 @@ import { Card } from "@/components/ui/card";
 import { StatBar } from "@/components/ui/stat-bar";
 import { buttonStyles } from "@/components/ui/button";
 import { TeamCard } from "@/components/teams/team-card";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
+import { FormationPitch } from "@/components/teams/formation-pitch";
+import { CaptainAvatar } from "@/components/captains/captain-avatar";
 
 export function generateStaticParams() {
   return teams.map((t) => ({ slug: t.slug }));
@@ -54,10 +55,10 @@ export default async function TeamDetailPage({
         <Container size="wide">
           <div className="flex flex-col gap-6 py-14 lg:flex-row lg:items-end lg:justify-between lg:py-20">
             <div className="flex items-center gap-5">
-              <TeamCrest
+              <TeamLogo
                 team={team}
                 size={72}
-                className="h-16 w-16 rounded-md border border-arena-line-strong sm:h-[72px] sm:w-[72px]"
+                className="h-16 w-16 drop-shadow-[0_4px_14px_rgba(0,0,0,0.55)] sm:h-[72px] sm:w-[72px]"
               />
               <div>
                 <p className="text-label text-arena-mist">
@@ -111,57 +112,55 @@ export default async function TeamDetailPage({
                 </div>
               </>
             )}
+
+            <div className="mt-12 grid gap-6 sm:grid-cols-2">
+              {captain && (
+                <Card>
+                  <p className="text-label text-arena-mist">Captain</p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <CaptainAvatar captain={captain} team={team} size={56} />
+                    <div>
+                      <p className="text-display-sm">{captain.name}</p>
+                      <p className="text-body-sm text-arena-mist">
+                        {captain.position} · #{captain.number}
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    href={`/captains/${captain.slug}`}
+                    className={buttonStyles({ variant: "secondary", size: "sm", className: "mt-4 w-full" })}
+                  >
+                    View Captain
+                  </Link>
+                </Card>
+              )}
+
+              <Card>
+                <p className="text-label text-arena-mist">Club Info</p>
+                <dl className="mt-3 flex flex-col gap-2 text-body-sm">
+                  <div className="flex justify-between">
+                    <dt className="text-arena-mist">Founded</dt>
+                    <dd className="text-arena-fog">{team.founded}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-arena-mist">Stadium</dt>
+                    <dd className="text-arena-fog">{team.stadium}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-arena-mist">League</dt>
+                    <dd className="text-arena-fog">{team.league}</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-arena-mist">Trophies</dt>
+                    <dd className="text-arena-fog">{team.trophies}</dd>
+                  </div>
+                </dl>
+              </Card>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-6">
-            {captain && (
-              <Card>
-                <p className="text-label text-arena-mist">Captain</p>
-                <div className="mt-3 flex items-center gap-3">
-                  <Image
-                    src={captain.image}
-                    alt=""
-                    width={56}
-                    height={56}
-                    className="h-14 w-14 rounded-md border border-arena-line-strong object-cover"
-                  />
-                  <div>
-                    <p className="text-display-sm">{captain.name}</p>
-                    <p className="text-body-sm text-arena-mist">
-                      {captain.position} · #{captain.number}
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  href={`/captains/${captain.slug}`}
-                  className={buttonStyles({ variant: "secondary", size: "sm", className: "mt-4 w-full" })}
-                >
-                  View Captain
-                </Link>
-              </Card>
-            )}
-
-            <Card>
-              <p className="text-label text-arena-mist">Club Info</p>
-              <dl className="mt-3 flex flex-col gap-2 text-body-sm">
-                <div className="flex justify-between">
-                  <dt className="text-arena-mist">Founded</dt>
-                  <dd className="text-arena-fog">{team.founded}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-arena-mist">Stadium</dt>
-                  <dd className="text-arena-fog">{team.stadium}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-arena-mist">League</dt>
-                  <dd className="text-arena-fog">{team.league}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-arena-mist">Trophies</dt>
-                  <dd className="text-arena-fog">{team.trophies}</dd>
-                </div>
-              </dl>
-            </Card>
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <FormationPitch team={team} captain={captain} />
           </div>
         </div>
 

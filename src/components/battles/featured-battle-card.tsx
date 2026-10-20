@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Battle } from "@/types";
 import { getTeamById } from "@/data/teams";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
 
 export function FeaturedBattleCard({ battle }: { battle: Battle }) {
   const teamA = getTeamById(battle.teamAId);
@@ -15,9 +15,9 @@ export function FeaturedBattleCard({ battle }: { battle: Battle }) {
     >
       <p className="text-label text-arena-mist">{battle.tagline}</p>
       <div className="mt-4 flex items-center justify-center gap-4">
-        <TeamCrest team={teamA} size={44} />
+        <TeamLogo team={teamA} size={44} />
         <span className="text-display-sm text-arena-smoke">VS</span>
-        <TeamCrest team={teamB} size={44} />
+        <TeamLogo team={teamB} size={44} />
       </div>
       <p className="mt-4 text-center text-body-sm text-arena-mist">
         {teamA.shortName} vs {teamB.shortName}

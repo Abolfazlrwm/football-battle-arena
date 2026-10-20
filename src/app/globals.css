@@ -43,6 +43,7 @@
 
   /* ---- Accent (default "house" accent; teams override in later phases) ---- */
   --accent: #4f7cff;
+  --accent-readable: #82a2ff;
   --accent-strong: #82a2ff;
   --accent-soft: rgba(79, 124, 255, 0.14);
   --accent-contrast: #04070f;
@@ -116,18 +117,21 @@
 /* Example accent palettes — placeholders proving the swap mechanism.
    Real per-team accents arrive with the team data model (Phase 04+). */
 [data-accent="ember"] {
+  --accent-readable: #ff8a63;
   --accent: #ff5a36;
   --accent-strong: #ff8a63;
   --accent-soft: rgba(255, 90, 54, 0.14);
   --accent-contrast: #170502;
 }
 [data-accent="glacier"] {
+  --accent-readable: #9be6ff;
   --accent: #5fd0ff;
   --accent-strong: #9be6ff;
   --accent-soft: rgba(95, 208, 255, 0.14);
   --accent-contrast: #02131a;
 }
 [data-accent="verdant"] {
+  --accent-readable: #86efac;
   --accent: #4ade80;
   --accent-strong: #86efac;
   --accent-soft: rgba(74, 222, 128, 0.14);
@@ -147,6 +151,7 @@
   --color-arena-line-strong: var(--arena-line-strong);
 
   --color-accent: var(--accent);
+  --color-accent-readable: var(--accent-readable);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
   --color-accent-contrast: var(--accent-contrast);
@@ -309,6 +314,37 @@ h4 {
 .bg-arena-texture {
   background-image: radial-gradient(rgba(244, 245, 247, 0.5) 1px, transparent 1px);
   background-size: 22px 22px;
+}
+
+/* Players "taking their positions" on the formation pitch — staggered
+   per marker via an inline animation-delay. The global reduced-motion
+   rule below collapses this to an instant appearance. */
+@keyframes arena-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-pop-in {
+  animation: arena-pop-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Mown-turf look for the formation pitch: soft alternating bands. */
+.bg-pitch {
+  background-color: #0b2416;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035) 0,
+      rgba(255, 255, 255, 0.035) 8.333%,
+      transparent 8.333%,
+      transparent 16.666%
+    ),
+    radial-gradient(120% 90% at 50% 100%, rgba(34, 120, 70, 0.35), transparent 70%);
 }
 
 @media (prefers-reduced-motion: reduce) {

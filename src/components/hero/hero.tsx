@@ -9,6 +9,7 @@ import { buildAccentVars } from "@/lib/color";
 import { Container } from "@/components/ui/container";
 import { buttonStyles } from "@/components/ui/button";
 import { StatBar } from "@/components/ui/stat-bar";
+import { Badge } from "@/components/ui/badge";
 import { TeamSelector } from "./team-selector";
 import { CaptainPanel } from "./captain-panel";
 
@@ -38,7 +39,7 @@ export function Hero() {
         />
 
         <Container size="wide">
-          <div className="grid gap-12 py-16 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-24">
+          <div className="grid gap-10 py-12 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={team.id}
@@ -49,6 +50,11 @@ export function Hero() {
               >
                 <p className="text-label text-arena-mist">Football Battle Arena</p>
                 <h1 className="mt-3 text-display-2xl uppercase text-arena-fog">{team.name}</h1>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <Badge variant="accent">{team.formation}</Badge>
+                  <Badge variant="outline">{team.league}</Badge>
+                  <Badge variant="outline">Est. {team.founded}</Badge>
+                </div>
                 <p className="mt-4 max-w-md text-body-lg text-arena-mist">{team.description}</p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-3">

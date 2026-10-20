@@ -17,6 +17,14 @@ export interface TeamStats {
   defense: number;
 }
 
+/**
+ * A club's signature tactical shape, used to draw its formation pitch
+ * (see /lib/formations.ts). Illustrative: real lineups change match to
+ * match, so this is the arena's representative shape for the club's
+ * identity, not a confirmed team sheet.
+ */
+export type Formation = "4-3-3" | "4-2-3-1" | "4-4-2" | "3-5-2" | "3-4-3";
+
 export interface Team {
   id: string;
   slug: string;
@@ -33,6 +41,7 @@ export interface Team {
   heroImage: string;
   /** References Captain.id in /data/captains.ts. */
   captainId: string;
+  formation: Formation;
   stats: TeamStats;
   /**
    * Approximate count of major honours (league + top continental
