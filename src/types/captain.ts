@@ -1,3 +1,6 @@
+/** Optional nuance within a position group, used to place the captain on the formation pitch. */
+export type CaptainRoleHint = "deep" | "attacking" | "wide";
+
 export type CaptainPosition = "Goalkeeper" | "Defender" | "Midfielder" | "Forward";
 
 /**
@@ -20,6 +23,7 @@ export interface Captain {
   /** References Team.id in /data/teams.ts. */
   teamId: string;
   position: CaptainPosition;
+  roleHint?: CaptainRoleHint;
   /** Current club squad number. */
   number: number;
   nationality: string;

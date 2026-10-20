@@ -133,8 +133,26 @@ export function contrastColor(hex: string): string {
   return luminance(hex) > 0.55 ? "#04070f" : "#ffffff";
 }
 
+/**
+ * A lightened take on the accent that stays legible as text, thin lines,
+ * and bar fills on the near-black page (brand navies and garnets don't).
+ * Hue is preserved; white/yellow/sky-blue accents pass through unchanged.
+ */
+const READABLE_LUMINANCE = 0.42;
+
+function readableOnDark(hex: string): string {
+  let color = hex;
+  let guard = 0;
+  while (luminance(color) < READABLE_LUMINANCE && guard < 30) {
+    color = adjustLightness(color, 3);
+    guard += 1;
+  }
+  return color;
+}
+
 export interface AccentVars {
   "--accent": string;
+  "--accent-readable": string;
   "--accent-strong": string;
   "--accent-soft": string;
   "--accent-contrast": string;
@@ -151,6 +169,7 @@ export function buildAccentVars(colors: TeamColors): AccentVars {
   const isLight = luminance(accent) > 0.6;
   return {
     "--accent": accent,
+    "--accent-readable": readableOnDark(accent),
     "--accent-strong": adjustLightness(accent, isLight ? -10 : 12),
     "--accent-soft": withAlpha(accent, 0.14),
     "--accent-contrast": contrastColor(accent),

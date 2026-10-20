@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Captain } from "@/types";
 import { getTeamById } from "@/data/teams";
 import { buildAccentVars } from "@/lib/color";
 import { Badge } from "@/components/ui/badge";
+import { CaptainPortrait } from "./captain-portrait";
 
 /**
  * Gallery card for /captains and the "related" strip on team detail
@@ -23,14 +23,13 @@ export function CaptainCard({ captain }: { captain: Captain }) {
       style={accentVars as CSSProperties}
       className="group relative block aspect-[3/4] overflow-hidden rounded-md border border-arena-line bg-arena-charcoal shadow-card transition-[border-color,box-shadow] duration-300 hover:border-accent hover:shadow-elevated"
     >
-      <Image
-        src={captain.image}
-        alt=""
-        aria-hidden="true"
-        fill
-        sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-      />
+      <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+        <CaptainPortrait
+          captain={captain}
+          team={team}
+          sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
+        />
+      </div>
       <div aria-hidden className="bg-arena-vignette absolute inset-0" />
       <div
         aria-hidden

@@ -44,7 +44,7 @@ export function StatBar({
         <div
           className={cx(
             "h-full rounded-full transition-[width] duration-500 ease-out",
-            accent ? "bg-accent" : "bg-arena-fog/70"
+            accent ? "bg-accent-readable" : "bg-arena-fog/70"
           )}
           style={{ width: `${pct}%` }}
         />

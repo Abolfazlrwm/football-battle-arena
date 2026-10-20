@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
@@ -11,7 +10,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StatBar } from "@/components/ui/stat-bar";
 import { buttonStyles } from "@/components/ui/button";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
+import { CaptainPortrait } from "@/components/captains/captain-portrait";
 
 export function generateStaticParams() {
   return captains.map((c) => ({ slug: c.slug }));
@@ -81,21 +81,18 @@ export default async function CaptainDetailPage({
             </div>
 
             <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-xl border border-arena-line bg-arena-charcoal shadow-elevated lg:max-w-none">
-              <div aria-hidden className="bg-arena-texture absolute inset-0 opacity-[0.06]" />
-              <Image
-                src={captain.image}
-                alt={`${captain.name}, captain of ${team.name}`}
-                fill
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="object-cover"
+              <CaptainPortrait
+                captain={captain}
+                team={team}
                 priority
+                sizes="(min-width: 1024px) 40vw, 90vw"
               />
               <div aria-hidden className="bg-arena-vignette absolute inset-0" />
               <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-6">
-                <TeamCrest
+                <TeamLogo
                   team={team}
                   size={40}
-                  className="shrink-0 rounded-sm border border-arena-line-strong"
+                  className="shrink-0 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
                 />
                 <p className="text-body-sm text-arena-mist">{team.name}</p>
               </div>
@@ -126,10 +123,10 @@ export default async function CaptainDetailPage({
             <Card>
               <p className="text-label text-arena-mist">Club</p>
               <div className="mt-3 flex items-center gap-3">
-                <TeamCrest
+                <TeamLogo
                   team={team}
                   size={48}
-                  className="rounded-md border border-arena-line-strong"
+                  className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
                 />
                 <div>
                   <p className="text-display-sm">{team.shortName}</p>

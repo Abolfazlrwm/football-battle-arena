@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search as SearchIcon, X } from "lucide-react";
-import { buildSearchIndex, type SearchItem } from "@/lib/search-index";
+import { buildSearchIndex, matchesQuery, type SearchItem } from "@/lib/search-index";
 import { cx } from "@/lib/cx";
 
 const GROUP_ORDER: SearchItem["type"][] = ["Team", "Captain", "League"];
@@ -22,7 +22,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const matches = q === "" ? index : index.filter((item) => item.label.toLowerCase().includes(q));
+    const matches = q === "" ? index : index.filter((item) => matchesQuery(item, q));
     return GROUP_ORDER.flatMap((type) => matches.filter((m) => m.type === type));
   }, [index, query]);
 

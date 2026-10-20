@@ -28,6 +28,7 @@ export const teams: Team[] = [
     stadium: "Santiago Bernabéu",
     colors: { primary: "#FFFFFF", secondary: "#1E3A8A" },
     captainId: "federico-valverde",
+    formation: "4-3-3",
     stats: { overall: 90, attack: 92, midfield: 87, defense: 85 },
     trophies: 100,
     description:
@@ -44,6 +45,7 @@ export const teams: Team[] = [
     stadium: "Camp Nou",
     colors: { primary: "#A50044", secondary: "#004D98" },
     captainId: "raphinha",
+    formation: "4-3-3",
     stats: { overall: 91, attack: 93, midfield: 90, defense: 82 },
     trophies: 99,
     description:
@@ -60,6 +62,7 @@ export const teams: Team[] = [
     stadium: "Etihad Stadium",
     colors: { primary: "#6CABDD", secondary: "#1C2C5B" },
     captainId: "ruben-dias",
+    formation: "4-2-3-1",
     stats: { overall: 89, attack: 88, midfield: 90, defense: 86 },
     trophies: 36,
     description:
@@ -76,6 +79,7 @@ export const teams: Team[] = [
     stadium: "Anfield",
     colors: { primary: "#C8102E", secondary: "#1A1A1A" },
     captainId: "virgil-van-dijk",
+    formation: "4-3-3",
     stats: { overall: 88, attack: 87, midfield: 85, defense: 87 },
     trophies: 97,
     description:
@@ -92,6 +96,7 @@ export const teams: Team[] = [
     stadium: "Emirates Stadium",
     colors: { primary: "#EF0107", secondary: "#023474" },
     captainId: "martin-odegaard",
+    formation: "4-3-3",
     stats: { overall: 87, attack: 85, midfield: 88, defense: 86 },
     trophies: 48,
     description:
@@ -108,6 +113,7 @@ export const teams: Team[] = [
     stadium: "Old Trafford",
     colors: { primary: "#DA291C", secondary: "#FBE122" },
     captainId: "bruno-fernandes",
+    formation: "4-4-2",
     stats: { overall: 82, attack: 83, midfield: 80, defense: 78 },
     trophies: 68,
     description:
@@ -124,6 +130,7 @@ export const teams: Team[] = [
     stadium: "Allianz Arena",
     colors: { primary: "#DC052D", secondary: "#0066B2" },
     captainId: "manuel-neuer",
+    formation: "4-2-3-1",
     stats: { overall: 89, attack: 90, midfield: 86, defense: 85 },
     trophies: 84,
     description:
@@ -140,6 +147,7 @@ export const teams: Team[] = [
     stadium: "Signal Iduna Park",
     colors: { primary: "#FDE100", secondary: "#000000" },
     captainId: "emre-can",
+    formation: "4-2-3-1",
     stats: { overall: 82, attack: 84, midfield: 80, defense: 76 },
     trophies: 24,
     description:
@@ -156,6 +164,7 @@ export const teams: Team[] = [
     stadium: "San Siro",
     colors: { primary: "#010E80", secondary: "#000000" },
     captainId: "lautaro-martinez",
+    formation: "3-5-2",
     stats: { overall: 87, attack: 86, midfield: 85, defense: 88 },
     trophies: 46,
     description:
@@ -172,6 +181,7 @@ export const teams: Team[] = [
     stadium: "San Siro",
     colors: { primary: "#FB090B", secondary: "#000000" },
     captainId: "mike-maignan",
+    formation: "4-3-3",
     stats: { overall: 84, attack: 83, midfield: 82, defense: 84 },
     trophies: 50,
     description:
@@ -188,6 +198,7 @@ export const teams: Team[] = [
     stadium: "Parc des Princes",
     colors: { primary: "#004170", secondary: "#DA291C" },
     captainId: "marquinhos",
+    formation: "4-3-3",
     stats: { overall: 90, attack: 92, midfield: 87, defense: 83 },
     trophies: 50,
     description:
@@ -204,6 +215,7 @@ export const teams: Team[] = [
     stadium: "Allianz Stadium",
     colors: { primary: "#000000", secondary: "#FFFFFF" },
     captainId: "manuel-locatelli",
+    formation: "3-5-2",
     stats: { overall: 83, attack: 80, midfield: 82, defense: 85 },
     trophies: 70,
     description:
