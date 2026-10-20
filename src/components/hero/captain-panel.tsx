@@ -1,14 +1,12 @@
-import Image from "next/image";
 import type { Captain, Team } from "@/types";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
+import { CaptainPortrait } from "@/components/captains/captain-portrait";
 
 /**
- * The captain image treatment: rounded panel, cover-fit image, a
- * vignette fading into the page, an accent-colored glow behind it, and
- * a very faint dot texture — all built with existing design-system
- * tokens/utilities. Real photography can drop straight into `image`
- * (see /data/images.ts) once licensed assets exist; the framing,
- * gradient, and glow around it don't need to change.
+ * The captain visual: a rounded panel holding the captain portrait (a
+ * generated poster by default, or a real photo once one is added — see
+ * CaptainPortrait), a vignette fading into the page, and an
+ * accent-colored glow behind it. The framing doesn't change either way.
  */
 export function CaptainPanel({ team, captain }: { team: Team; captain: Captain }) {
   return (
@@ -17,23 +15,20 @@ export function CaptainPanel({ team, captain }: { team: Team; captain: Captain }
         aria-hidden
         className="bg-accent-glow absolute -inset-8 -z-10 opacity-60 blur-2xl transition-colors duration-500"
       />
-      <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-xl border border-arena-line bg-arena-charcoal shadow-elevated lg:max-w-none">
-        <div aria-hidden className="bg-arena-texture absolute inset-0 opacity-[0.06]" />
-        <Image
-          src={captain.image}
-          alt={`${captain.name}, captain of ${team.name}`}
-          fill
-          sizes="(min-width: 1024px) 40vw, 90vw"
-          className="object-cover"
+      <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-xl border border-arena-line bg-arena-charcoal shadow-elevated lg:ml-auto lg:mr-0 lg:max-w-[440px]">
+        <CaptainPortrait
+          captain={captain}
+          team={team}
           priority
+          sizes="(min-width: 1024px) 40vw, 90vw"
         />
         <div aria-hidden className="bg-arena-vignette absolute inset-0" />
 
         <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-6">
-          <TeamCrest
+          <TeamLogo
             team={team}
             size={40}
-            className="shrink-0 rounded-sm border border-arena-line-strong"
+            className="shrink-0 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]"
           />
           <div className="min-w-0">
             <p className="truncate text-display-sm text-arena-fog">{captain.name}</p>

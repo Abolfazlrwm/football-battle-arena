@@ -5,13 +5,14 @@ import { AnimatePresence, motion } from "motion/react";
 import { Play, RotateCcw } from "lucide-react";
 import type { Team } from "@/types";
 import { simulateMatch, type MatchEvent, type MatchResult } from "@/lib/simulate-match";
-import { TeamCrest } from "@/components/teams/team-crest";
+import { TeamLogo } from "@/components/teams/team-logo";
 import { buttonStyles } from "@/components/ui/button";
 import { cx } from "@/lib/cx";
+import { contrastColor } from "@/lib/color";
 
 type Phase = "idle" | "playing" | "finished";
 
-const TICK_MS = 26;
+const TICK_MS = 30;
 
 /**
  * The playable companion to <VerdictBanner>: actually "kicks off" the
@@ -81,7 +82,18 @@ export function MatchSimulator({
 
   const goalsA = revealed.filter((e) => e.teamId === teamA.id).length;
   const goalsB = revealed.filter((e) => e.teamId === teamB.id).length;
+  const latestGoal = revealed.length > 0 ? revealed[revealed.length - 1] : null;
   const winnerAccent = result?.outcome === "A" ? accentA : result?.outcome === "B" ? accentB : undefined;
+
+  /** Winner glows + scales up after full time; loser dims. Draw/idle: neutral. */
+  function crestStyle(side: "A" | "B"): React.CSSProperties | undefined {
+    if (phase !== "finished" || !result || result.outcome === "DRAW") return undefined;
+    const isWinner = result.outcome === side;
+    const accent = side === "A" ? accentA : accentB;
+    return isWinner
+      ? { filter: `drop-shadow(0 0 10px ${accent})`, transform: "scale(1.15)" }
+      : { opacity: 0.45 };
+  }
 
   return (
     <div className="rounded-md border border-arena-line bg-arena-charcoal p-6">
@@ -100,14 +112,10 @@ export function MatchSimulator({
         <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-end">
           <p className="order-2 text-body-sm text-arena-fog sm:order-1">{teamA.shortName}</p>
           <span
-            className="order-1 rounded-md sm:order-2"
-            style={
-              phase === "finished" && result?.outcome === "A"
-                ? { boxShadow: `0 0 0 2px ${accentA}` }
-                : undefined
-            }
+            className="order-1 transition-[transform,filter,opacity] duration-500 sm:order-2"
+            style={crestStyle("A")}
           >
-            <TeamCrest team={teamA} size={36} />
+            <TeamLogo team={teamA} size={44} />
           </span>
         </div>
 
@@ -133,18 +141,64 @@ export function MatchSimulator({
 
         <div className="flex flex-col items-center gap-2 sm:flex-row">
           <span
-            className="rounded-md"
-            style={
-              phase === "finished" && result?.outcome === "B"
-                ? { boxShadow: `0 0 0 2px ${accentB}` }
-                : undefined
-            }
+            className="transition-[transform,filter,opacity] duration-500"
+            style={crestStyle("B")}
           >
-            <TeamCrest team={teamB} size={36} />
+            <TeamLogo team={teamB} size={44} />
           </span>
           <p className="text-body-sm text-arena-fog">{teamB.shortName}</p>
         </div>
       </div>
+
+      <div className="relative mt-5 h-7">
+        <AnimatePresence>
+          {phase === "playing" && latestGoal && (
+            <motion.div
+              key={`goal-${latestGoal.teamId}-${latestGoal.minute}`}
+              initial={{ opacity: 0, scale: 0.8, y: 4 }}
+              animate={{ opacity: [0, 1, 1, 0], scale: [0.8, 1.08, 1, 1], y: 0 }}
+              transition={{ duration: 1.1, times: [0, 0.15, 0.7, 1] }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <span
+                className="rounded-sm px-3 py-0.5 font-display text-display-sm uppercase tracking-wide"
+                style={{
+                  backgroundColor: latestGoal.teamId === teamA.id ? accentA : accentB,
+                  color: contrastColor(latestGoal.teamId === teamA.id ? accentA : accentB),
+                }}
+              >
+                Goal! {latestGoal.teamId === teamA.id ? teamA.shortName : teamB.shortName}
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {phase !== "idle" && (
+        <div className="mt-1" aria-hidden="true">
+          <div className="relative h-1.5 rounded-full bg-arena-charcoal-raised">
+            <div
+              className="absolute inset-y-0 left-0 rounded-full bg-arena-fog/25"
+              style={{ width: `${(clock / 90) * 100}%` }}
+            />
+            {revealed.map((event) => (
+              <span
+                key={`pin-${event.teamId}-${event.minute}`}
+                className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-arena-charcoal"
+                style={{
+                  left: `${(event.minute / 90) * 100}%`,
+                  backgroundColor: event.teamId === teamA.id ? accentA : accentB,
+                }}
+              />
+            ))}
+          </div>
+          <div className="mt-1 flex justify-between text-caption text-arena-smoke">
+            <span>0&rsquo;</span>
+            <span>45&rsquo;</span>
+            <span>90&rsquo;</span>
+          </div>
+        </div>
+      )}
 
       <div className="mt-5 flex min-h-[2.5rem] flex-col-reverse">
         <AnimatePresence initial={false}>
