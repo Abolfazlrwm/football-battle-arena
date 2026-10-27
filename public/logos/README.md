@@ -3,11 +3,16 @@
 One file per team, named exactly after its slug, as a **256×256 transparent WebP**:
 
 ```
-real-madrid.webp         manchester-city.webp     bayern-munich.webp
-barcelona.webp           liverpool.webp           borussia-dortmund.webp
-arsenal.webp             manchester-united.webp   inter-milan.webp
-ac-milan.webp            psg.webp                 juventus.webp
+Premier League   manchester-city  liverpool  arsenal  manchester-united
+La Liga          real-madrid  barcelona  atletico-madrid  athletic-club
+Bundesliga       bayern-munich  borussia-dortmund  bayer-leverkusen  rb-leipzig
+Serie A          inter-milan  ac-milan  juventus  napoli
+Ligue 1          psg  marseille  monaco  lyon
+Primeira Liga    benfica  porto  sporting-cp  sc-braga
 ```
+(each as `{slug}.webp`)
+
+After adding or removing a file, restart `npm run dev` (it regenerates `src/data/logos.generated.ts` automatically).
 
 `TeamLogo` (src/components/teams/team-logo.tsx) loads `/logos/{slug}.webp` and
 automatically falls back to the generated `TeamCrest` badge if a file is missing,

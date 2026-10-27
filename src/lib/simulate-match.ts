@@ -75,3 +75,111 @@ export function simulateMatch(teamA: Team, teamB: Team): MatchResult {
 
   return { teamAGoals: goalsA, teamBGoals: goalsB, events, outcome };
 }
+
+/* ------------------------------------------------------------------ */
+/* Knockout ties + many-run odds (used by the Arena Cup and Arena Odds) */
+/* ------------------------------------------------------------------ */
+
+export interface KnockoutResult {
+  teamAGoals: number;
+  teamBGoals: number;
+  extraTime: { a: number; b: number } | null;
+  penalties: { a: number; b: number } | null;
+  winnerId: string;
+  decidedBy: "regular" | "extra-time" | "penalties";
+}
+
+const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
+
+/** 90 minutes; if level, 30 minutes of extra time; if still level, penalties. */
+export function simulateKnockout(teamA: Team, teamB: Team): KnockoutResult {
+  const reg = simulateMatch(teamA, teamB);
+  if (reg.outcome !== "DRAW") {
+    return {
+      teamAGoals: reg.teamAGoals,
+      teamBGoals: reg.teamBGoals,
+      extraTime: null,
+      penalties: null,
+      winnerId: reg.outcome === "A" ? teamA.id : teamB.id,
+      decidedBy: "regular",
+    };
+  }
+
+  const etA = samplePoisson(expectedGoals(teamA, teamB) / 3);
+  const etB = samplePoisson(expectedGoals(teamB, teamA) / 3);
+  if (etA !== etB) {
+    return {
+      teamAGoals: reg.teamAGoals,
+      teamBGoals: reg.teamBGoals,
+      extraTime: { a: etA, b: etB },
+      penalties: null,
+      winnerId: etA > etB ? teamA.id : teamB.id,
+      decidedBy: "extra-time",
+    };
+  }
+
+  const edge = (teamA.stats.overall - teamB.stats.overall) / 400;
+  const pA = clamp(0.75 + edge, 0.68, 0.82);
+  const pB = clamp(0.75 - edge, 0.68, 0.82);
+  let a = 0;
+  let b = 0;
+  for (let i = 0; i < 5; i++) {
+    if (Math.random() < pA) a += 1;
+    if (Math.random() < pB) b += 1;
+  }
+  while (a === b) {
+    if (Math.random() < pA) a += 1;
+    if (Math.random() < pB) b += 1;
+  }
+  return {
+    teamAGoals: reg.teamAGoals,
+    teamBGoals: reg.teamBGoals,
+    extraTime: { a: etA, b: etB },
+    penalties: { a, b },
+    winnerId: a > b ? teamA.id : teamB.id,
+    decidedBy: "penalties",
+  };
+}
+
+export interface OddsSummary {
+  runs: number;
+  aWinPct: number;
+  drawPct: number;
+  bWinPct: number;
+  avgGoalsA: number;
+  avgGoalsB: number;
+  topScorelines: Array<{ score: string; pct: number }>;
+}
+
+/** Monte-Carlo: replay the matchup `runs` times and summarize. */
+export function simulateMany(teamA: Team, teamB: Team, runs = 2000): OddsSummary {
+  let aWins = 0;
+  let draws = 0;
+  let bWins = 0;
+  let goalsA = 0;
+  let goalsB = 0;
+  const scorelines = new Map<string, number>();
+  for (let i = 0; i < runs; i++) {
+    const r = simulateMatch(teamA, teamB);
+    if (r.outcome === "A") aWins += 1;
+    else if (r.outcome === "B") bWins += 1;
+    else draws += 1;
+    goalsA += r.teamAGoals;
+    goalsB += r.teamBGoals;
+    const key = `${r.teamAGoals}–${r.teamBGoals}`;
+    scorelines.set(key, (scorelines.get(key) ?? 0) + 1);
+  }
+  const topScorelines = [...scorelines.entries()]
+    .sort((x, y) => y[1] - x[1])
+    .slice(0, 5)
+    .map(([score, count]) => ({ score, pct: (count / runs) * 100 }));
+  return {
+    runs,
+    aWinPct: (aWins / runs) * 100,
+    drawPct: (draws / runs) * 100,
+    bWinPct: (bWins / runs) * 100,
+    avgGoalsA: goalsA / runs,
+    avgGoalsB: goalsB / runs,
+    topScorelines,
+  };
+}
