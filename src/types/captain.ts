@@ -1,5 +1,5 @@
 /** Optional nuance within a position group, used to place the captain on the formation pitch. */
-export type CaptainRoleHint = "deep" | "attacking" | "wide";
+export type CaptainRoleHint = "deep" | "attacking" | "wide" | "wide-left" | "wide-right";
 
 export type CaptainPosition = "Goalkeeper" | "Defender" | "Midfielder" | "Forward";
 

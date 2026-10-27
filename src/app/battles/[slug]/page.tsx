@@ -10,6 +10,9 @@ import { buttonStyles } from "@/components/ui/button";
 import { ComparisonRow } from "@/components/battles/comparison-row";
 import { VerdictBanner } from "@/components/battles/verdict-banner";
 import { MatchSimulator } from "@/components/battles/match-simulator";
+import { OddsPanel } from "@/components/battles/odds-panel";
+import { RadarChart } from "@/components/battles/radar-chart";
+import { RADAR_AXES, radarValues } from "@/lib/league";
 import { TeamLogo } from "@/components/teams/team-logo";
 import { FormationPitch } from "@/components/teams/formation-pitch";
 import { CaptainAvatar } from "@/components/captains/captain-avatar";
@@ -131,6 +134,22 @@ export default async function BattleDetailPage({
 
           <div className="mt-6">
             <MatchSimulator teamA={teamA} teamB={teamB} accentA={accentA} accentB={accentB} />
+          </div>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <div className="rounded-md border border-arena-line bg-arena-charcoal p-6">
+              <p className="text-label text-arena-mist">Shape of the matchup</p>
+              <div className="mt-3">
+                <RadarChart
+                  axes={RADAR_AXES}
+                  series={[
+                    { label: teamA.shortName, color: accentA, values: radarValues(teamA) },
+                    { label: teamB.shortName, color: accentB, values: radarValues(teamB) },
+                  ]}
+                />
+              </div>
+            </div>
+            <OddsPanel teamA={teamA} teamB={teamB} accentA={accentA} accentB={accentB} />
           </div>
 
           <div className="mt-8 flex flex-col gap-5">

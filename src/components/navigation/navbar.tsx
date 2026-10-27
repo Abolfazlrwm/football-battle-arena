@@ -72,9 +72,9 @@ export function Navbar() {
         >
           <Logo />
 
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-4 md:flex lg:gap-5 xl:gap-8" aria-label="Primary">
             {navLinks.map((item) => (
-              <NavLink key={item.href} item={item} />
+              <NavLink key={item.href} item={item} className={item.href === "/about" ? "max-xl:hidden" : undefined} />
             ))}
           </nav>
 
@@ -93,7 +93,7 @@ export function Navbar() {
 
             <Link
               href="/teams"
-              className={cx(buttonStyles({ variant: "primary", size: "sm" }), "hidden md:inline-flex")}
+              className={cx(buttonStyles({ variant: "primary", size: "sm" }), "whitespace-nowrap md:max-lg:hidden")}
             >
               Enter Arena
             </Link>

@@ -13,6 +13,7 @@ const COUNTRY_REGION: Record<string, RankingRegion> = {
   Germany: "Germany",
   Italy: "Italy",
   France: "France",
+  Portugal: "Portugal",
 };
 
 function regionFor(country: string): RankingRegion {

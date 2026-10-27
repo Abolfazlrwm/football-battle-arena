@@ -3,9 +3,11 @@
 import { useMemo, useState } from "react";
 import type { Team } from "@/types";
 import { cx } from "@/lib/cx";
+import { leagues } from "@/data/leagues";
 import { TeamCard } from "./team-card";
 
-const LEAGUES = ["All", "Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1"] as const;
+const LEAGUES: string[] = ["All", ...leagues.map((l) => l.name)];
+
 
 export function TeamsDirectory({
   teams,
@@ -15,8 +17,8 @@ export function TeamsDirectory({
   initialLeague?: string;
 }) {
   const [query, setQuery] = useState("");
-  const [league, setLeague] = useState<(typeof LEAGUES)[number]>(
-    (LEAGUES as readonly string[]).includes(initialLeague ?? "") ? (initialLeague as (typeof LEAGUES)[number]) : "All"
+  const [league, setLeague] = useState<string>(
+    LEAGUES.includes(initialLeague ?? "") ? (initialLeague as string) : "All"
   );
 
   const filtered = useMemo(() => {

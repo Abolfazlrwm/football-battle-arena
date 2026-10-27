@@ -4,12 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import type { Team } from "@/types";
 import { cx } from "@/lib/cx";
+import { AVAILABLE_LOGOS } from "@/data/logos.generated";
 import { TeamCrest } from "./team-crest";
 
 /**
  * Every team logo in the app renders through this component. It loads
  * the real file at /public/logos/{slug}.webp and, if that file is
- * missing or fails to load, falls back to the generated <TeamCrest>
+ * missing (per the generated manifest) or fails to load, falls back to the generated <TeamCrest>
  * badge — so logos can be added or replaced one at a time with no code
  * changes. See public/logos/README.md.
  */
@@ -24,7 +25,8 @@ export function TeamLogo({
 }) {
   const [failed, setFailed] = useState(false);
 
-  if (failed) {
+  // Only request files that exist (see scripts/gen-logo-manifest.mjs); a failed load still falls back.
+  if (failed || !AVAILABLE_LOGOS.includes(team.slug)) {
     return <TeamCrest team={team} size={size} className={className} />;
   }
 

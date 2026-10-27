@@ -1,5 +1,6 @@
 import { teams, getTeamById } from "@/data/teams";
 import { captains } from "@/data/captains";
+import { leagues } from "@/data/leagues";
 
 export interface SearchItem {
   type: "Team" | "Captain" | "League";
@@ -51,13 +52,12 @@ export function buildSearchIndex(): SearchItem[] {
     };
   });
 
-  const leagueNames = Array.from(new Set(teams.map((t) => t.league)));
-  const leagueItems: SearchItem[] = leagueNames.map((league) => ({
+  const leagueItems: SearchItem[] = leagues.map((l) => ({
     type: "League",
-    label: league,
-    sublabel: "League",
-    href: `/teams?league=${encodeURIComponent(league)}`,
-    haystack: normalize(league),
+    label: l.name,
+    sublabel: `${l.country} · ${l.tagline}`,
+    href: `/leagues/${l.slug}`,
+    haystack: normalize(`${l.name} ${l.country}`),
   }));
 
   return [...teamItems, ...captainItems, ...leagueItems];
