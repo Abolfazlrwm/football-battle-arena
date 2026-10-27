@@ -13,6 +13,9 @@ import { buttonStyles } from "@/components/ui/button";
 import { TeamCard } from "@/components/teams/team-card";
 import { TeamLogo } from "@/components/teams/team-logo";
 import { FormationPitch } from "@/components/teams/formation-pitch";
+import { RadarChart } from "@/components/battles/radar-chart";
+import { RADAR_AXES, radarValues } from "@/lib/league";
+import { getLeagueByName } from "@/data/leagues";
 import { CaptainAvatar } from "@/components/captains/captain-avatar";
 
 export function generateStaticParams() {
@@ -91,6 +94,11 @@ export default async function TeamDetailPage({
               <StatBar label="Defense" value={team.stats.defense} accent />
             </div>
 
+            <h2 className="mt-12 text-display-md">Profile</h2>
+            <div className="mt-4 max-w-sm">
+              <RadarChart axes={RADAR_AXES} series={[{ label: team.shortName, color: buildAccentVars(team.colors)["--accent-readable"], values: radarValues(team) }]} />
+            </div>
+
             {relatedBattles.length > 0 && (
               <>
                 <h2 className="mt-12 text-display-md">Battles</h2>
@@ -148,7 +156,11 @@ export default async function TeamDetailPage({
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-arena-mist">League</dt>
-                    <dd className="text-arena-fog">{team.league}</dd>
+                    <dd className="text-arena-fog">
+                      {getLeagueByName(team.league) ? (
+                        <Link href={`/leagues/${getLeagueByName(team.league)!.slug}`} className="hover:text-accent-readable">{team.league}</Link>
+                      ) : team.league}
+                    </dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-arena-mist">Trophies</dt>

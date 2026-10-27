@@ -5,7 +5,7 @@ import { CaptainsDirectory } from "@/components/captains/captains-directory";
 
 export const metadata: Metadata = {
   title: "Captains",
-  description: "The twelve captains leading the Football Battle Arena's clubs.",
+  description: `The ${captains.length} captains leading the Football Battle Arena's clubs.`,
 };
 
 export default function CaptainsPage() {

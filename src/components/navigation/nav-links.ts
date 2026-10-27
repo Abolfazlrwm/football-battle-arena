@@ -12,7 +12,9 @@ export interface NavLinkItem {
 export const navLinks: NavLinkItem[] = [
   { label: "Arena", href: "/" },
   { label: "Teams", href: "/teams" },
+  { label: "Leagues", href: "/leagues" },
   { label: "Battles", href: "/battles" },
+  { label: "Cup", href: "/tournament" },
   { label: "Rankings", href: "/rankings" },
   { label: "Captains", href: "/captains" },
   { label: "About", href: "/about" },

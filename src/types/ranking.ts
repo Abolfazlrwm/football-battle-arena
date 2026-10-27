@@ -4,7 +4,8 @@ export type RankingRegion =
   | "Spain"
   | "Germany"
   | "Italy"
-  | "France";
+  | "France"
+  | "Portugal";
 
 export interface RankingEntry {
   rank: number;

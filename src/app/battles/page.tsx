@@ -10,7 +10,15 @@ export const metadata: Metadata = {
   description: "Compare any two clubs head-to-head — a visual stat comparison, not a match prediction.",
 };
 
-export default function BattlesPage() {
+export default async function BattlesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ a?: string; b?: string }>;
+}) {
+  const { a, b } = await searchParams;
+  const valid = (id?: string) => (id && teams.some((t) => t.id === id) ? id : undefined);
+  const defaultAId = valid(a);
+  const defaultBId = valid(b) !== defaultAId ? valid(b) : undefined;
   const featured = getFeaturedBattles();
 
   return (
@@ -23,7 +31,7 @@ export default function BattlesPage() {
           arena&rsquo;s own ratings — not a real match prediction.
         </p>
         <div className="mt-10">
-          <BattleComparator teams={teams} />
+          <BattleComparator teams={teams} defaultAId={defaultAId} defaultBId={defaultBId} />
         </div>
       </Container>
 

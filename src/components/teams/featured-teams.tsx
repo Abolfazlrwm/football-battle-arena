@@ -3,14 +3,14 @@ import { teams } from "@/data/teams";
 import { Container } from "@/components/ui/container";
 import { TeamCard } from "./team-card";
 
-/** A curated subset for the homepage — the full 12 live at /teams. */
+/** A curated subset for the homepage — one flagship club from each of the six leagues. The full list lives at /teams. */
 const FEATURED_IDS = [
   "real-madrid",
-  "barcelona",
   "manchester-city",
-  "liverpool",
   "bayern-munich",
   "inter-milan",
+  "psg",
+  "benfica",
 ];
 
 export function FeaturedTeams() {

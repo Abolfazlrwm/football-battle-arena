@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "predev": "node scripts/gen-logo-manifest.mjs",
+    "prebuild": "node scripts/gen-logo-manifest.mjs"
   },
   "dependencies": {
     "@fontsource/big-shoulders-display": "^5.3.0",

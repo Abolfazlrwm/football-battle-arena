@@ -92,7 +92,7 @@ function categoryFor(position: CaptainPosition): SlotCategory {
  * Which slot the captain occupies, matched on his real position group
  * (goalkeeper → GK, defender → back line, …) and nudged by an optional
  * role hint: "deep" prefers the deepest slot, "attacking" the most
- * advanced central slot, "wide" the widest. With no hint the most central slot wins.
+ * advanced central slot, "wide" the widest, "wide-left" / "wide-right" the widest on that side. With no hint the most central slot wins.
  */
 export function captainSlotIndex(
   formation: Formation,
@@ -115,6 +115,8 @@ export function captainSlotIndex(
       return score(b) - score(a);
     }
     if (hint === "wide") return centrality(b.slot.x) - centrality(a.slot.x);
+    if (hint === "wide-left") return a.slot.x - b.slot.x;
+    if (hint === "wide-right") return b.slot.x - a.slot.x;
     return centrality(a.slot.x) - centrality(b.slot.x);
   });
   return candidates[0].index;
