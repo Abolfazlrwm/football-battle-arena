@@ -88,3 +88,27 @@ confirmed team sheets. To add a shape, add it to `FORMATION_LAYOUTS` and the
 `--accent` (brand), `--accent-readable` (lightened so text/lines/bars stay legible
 on the near-black page — Tailwind: `text-accent-readable`, `bg-accent-readable`),
 `--accent-strong`, `--accent-soft`, `--accent-contrast`.
+
+## Leagues, clubs & features (v3)
+
+**24 clubs across 6 leagues, four each** — Premier League, La Liga, Bundesliga, Serie A,
+Ligue 1, Primeira Liga. Clubs live in `src/data/teams.ts`, captains in
+`src/data/captains.ts` (verified against 2026/27 sources — re-check each season, armbands
+change), leagues in `src/data/leagues.ts`. Adding a club is one entry in each of the first
+two files; add its `{slug}.webp` to `public/logos/` when you have the logo.
+
+| Route | What it does |
+|---|---|
+| `/leagues`, `/leagues/[slug]` | League hubs: average ratings, clubs ranked, and a **season simulator** (full home-and-away table) |
+| `/tournament` | **Arena Cup**: seeded or random 8/16-club knockout with extra time and penalties |
+| `/battles` | Any two clubs: verdict, playable match, **Arena Odds** (2,000-run Monte-Carlo), radar chart. The URL is shareable (`?a=napoli&b=juventus`) |
+| `/rankings` | Sortable by rating / attack / midfield / defense / trophies, filterable by country |
+
+All results are simulated from the arena's own illustrative ratings (`src/lib/simulate-match.ts`:
+Poisson goals around an attack-vs-defense expected-goals estimate) — never real fixtures,
+results, or predictions.
+
+### Logo manifest
+`npm run dev` / `npm run build` first run `scripts/gen-logo-manifest.mjs`, which writes
+`src/data/logos.generated.ts` from the files in `public/logos/`. The app only requests logos
+that exist; clubs without one show a generated crest. After adding a logo, restart `npm run dev`.

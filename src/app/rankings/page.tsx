@@ -6,7 +6,7 @@ import { RankingsTable } from "@/components/rankings/rankings-table";
 
 export const metadata: Metadata = {
   title: "Rankings",
-  description: "The arena's own comparison ranking across all 12 clubs — not an official league table.",
+  description: `The arena's own comparison ranking across all ${teams.length} clubs — not an official league table.`,
 };
 
 export default function RankingsPage() {
