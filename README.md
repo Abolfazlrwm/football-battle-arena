@@ -1,8 +1,22 @@
 # Football Battle Arena
 
+[![CI](https://github.com/Abolfazlrwm/football-battle-arena/actions/workflows/ci.yml/badge.svg)](https://github.com/Abolfazlrwm/football-battle-arena/actions/workflows/ci.yml)
+[![tests](https://img.shields.io/badge/tests-22%20passing-brightgreen)](#testing)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+**🔴 Live demo: [football-battle-arena.vercel.app](https://football-battle-arena.vercel.app)**
+
 A cinematic, premium football website where every club is presented as a
 "Battle Team" led by its captain. Choose your team, meet its captain, and
 enter the arena.
+
+![Arena tour](docs/screenshots/arena-tour.gif)
+
+| Arena home — 24 clubs, real crests | Battles — verdict, odds, radar | Rankings — sortable, filterable |
+|---|---|---|
+| ![Arena home](docs/screenshots/home-hero.png) | ![Battles](docs/screenshots/battles.png) | ![Rankings](docs/screenshots/rankings.png) |
 
 Inspired by the interaction model of [battle-arena-gules.vercel.app](https://battle-arena-gules.vercel.app/)
 (a monochrome anime 1v1 judging arena) — reimagined for football, with
@@ -53,10 +67,23 @@ npm run build
 
 ## Development plan
 
-This project is being built in 20 reviewable phases (foundation → design
-system → navigation → data model → hero → ... → final QA). Each phase
-ends in its own commit. This repo currently contains **Phase 01 —
-Project Foundation** only.
+This project was built in 20 reviewable phases (foundation → design
+system → navigation → data model → hero → ... → final QA), one commit per
+phase — all 20 are complete and shipped as v3.
+
+## Testing
+
+Unit tests (Vitest) cover the core logic — the battle verdict math, the
+Poisson match simulator, the season table and the classname utility:
+
+```bash
+npm test          # 22 tests
+npm run lint      # ESLint
+npm run build     # production build
+```
+
+CI (`.github/workflows/ci.yml`) runs lint + tests + build on every push and
+pull request.
 
 ## Visual assets
 
