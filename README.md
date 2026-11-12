@@ -23,6 +23,9 @@ Inspired by the interaction model of [battle-arena-gules.vercel.app](https://bat
 teams and captains instead of characters, and a visual comparison system
 instead of an AI judge.
 
+<p align="center"><img src="assets/demo.gif" alt="demo" width="100%"></p>
+
+
 ## Stack
 
 - Next.js (App Router) + TypeScript
