@@ -6,6 +6,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+> [!NOTE]
+> **Scope: frontend showcase.** A polished UI demo — not a systems or AI project.
+> The deep engineering work lives in the flagship repos pinned on
+> [my profile](https://github.com/Abolfazlrwm).
+
 **🔴 Live demo: [football-battle-arena.vercel.app](https://football-battle-arena.vercel.app)**
 
 A cinematic, premium football website where every club is presented as a
