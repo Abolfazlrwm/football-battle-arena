@@ -3,14 +3,26 @@
 export const AVAILABLE_LOGOS: readonly string[] = [
   "ac-milan",
   "arsenal",
+  "athletic-club",
+  "atletico-madrid",
   "barcelona",
+  "bayer-leverkusen",
   "bayern-munich",
+  "benfica",
   "borussia-dortmund",
   "inter-milan",
   "juventus",
   "liverpool",
+  "lyon",
   "manchester-city",
   "manchester-united",
+  "marseille",
+  "monaco",
+  "napoli",
+  "porto",
   "psg",
-  "real-madrid"
+  "rb-leipzig",
+  "real-madrid",
+  "sc-braga",
+  "sporting-cp"
 ];
