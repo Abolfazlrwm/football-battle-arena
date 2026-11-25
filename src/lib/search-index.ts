@@ -12,7 +12,7 @@ export interface SearchItem {
 }
 
 /** Lowercase + strip accents, so "odegaard" finds "Ødegaard" and "martinez" finds "Martínez". */
-export function normalize(text: string): string {
+function normalize(text: string): string {
   return text
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
