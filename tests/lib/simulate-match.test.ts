@@ -18,8 +18,6 @@ function makeTeam(id: string, stats: [number, number, number, number]): Team {
     founded: 1900,
     stadium: "Test Arena",
     colors: { primary: "#000000", secondary: "#FFFFFF" },
-    logo: "",
-    heroImage: "",
     captainId: "",
     formation: "4-3-3",
     trophies: 1,

@@ -1,23 +1,19 @@
 import type { Team } from "@/types";
-import { teamHeroImage, teamLogoImage } from "./images";
 
 /**
- * The 12 launch clubs (see the master spec's INITIAL TEAMS list),
- * spanning six leagues (four clubs each). Colors, stadiums, founding years and captain
- * assignments were checked against current sources rather than assumed
- * from memory, since captaincies and squad details change season to
- * season — see /data/captains.ts for the same note.
+ * The arena's 24 clubs — six leagues, four per league. Colors, stadiums,
+ * founding years and captain assignments were checked against current
+ * sources rather than assumed from memory, since captaincies and squad
+ * details change season to season — see /data/captains.ts for the same
+ * note.
  *
  * `stats` and `trophies` are the arena's own illustrative comparison
  * figures (see the TeamStats and Team type docs) — not an official
  * ranking.
  */
-function team(t: Omit<Team, "logo" | "heroImage">): Team {
-  return { ...t, logo: teamLogoImage(t), heroImage: teamHeroImage(t) };
-}
 
 export const teams: Team[] = [
-  team({
+  {
     id: "real-madrid",
     slug: "real-madrid",
     name: "Real Madrid",
@@ -33,8 +29,8 @@ export const teams: Team[] = [
     trophies: 100,
     description:
       "The most decorated club in European football, built on a relentless expectation of winning every competition it enters.",
-  }),
-  team({
+  },
+  {
     id: "barcelona",
     slug: "barcelona",
     name: "Barcelona",
@@ -50,8 +46,8 @@ export const teams: Team[] = [
     trophies: 99,
     description:
       "A club defined by its academy and its philosophy — possession-based football built around technical, homegrown talent.",
-  }),
-  team({
+  },
+  {
     id: "manchester-city",
     slug: "manchester-city",
     name: "Manchester City",
@@ -67,8 +63,8 @@ export const teams: Team[] = [
     trophies: 36,
     description:
       "The dominant English side of the past decade, entering a new era after a summer of major changes to squad and staff.",
-  }),
-  team({
+  },
+  {
     id: "liverpool",
     slug: "liverpool",
     name: "Liverpool",
@@ -84,8 +80,8 @@ export const teams: Team[] = [
     trophies: 97,
     description:
       "One of the most storied names in the game, with a fan culture and an anthem as recognizable as its trophy cabinet.",
-  }),
-  team({
+  },
+  {
     id: "arsenal",
     slug: "arsenal",
     name: "Arsenal",
@@ -101,8 +97,8 @@ export const teams: Team[] = [
     trophies: 48,
     description:
       "North London's standard-bearer, rebuilt around a possession-heavy, high-pressing identity and a settled young core.",
-  }),
-  team({
+  },
+  {
     id: "manchester-united",
     slug: "manchester-united",
     name: "Manchester United",
@@ -118,8 +114,8 @@ export const teams: Team[] = [
     trophies: 68,
     description:
       "English football's most globally recognized club, still measuring every season against its own long history of success.",
-  }),
-  team({
+  },
+  {
     id: "bayern-munich",
     slug: "bayern-munich",
     name: "Bayern Munich",
@@ -135,8 +131,8 @@ export const teams: Team[] = [
     trophies: 84,
     description:
       "The dominant force in German football for two decades, built on squad continuity and a consistently ruthless standard.",
-  }),
-  team({
+  },
+  {
     id: "borussia-dortmund",
     slug: "borussia-dortmund",
     name: "Borussia Dortmund",
@@ -152,8 +148,8 @@ export const teams: Team[] = [
     trophies: 24,
     description:
       "Home to the loudest terrace in world football, the Yellow Wall, and a long track record of developing elite young talent.",
-  }),
-  team({
+  },
+  {
     id: "inter-milan",
     slug: "inter-milan",
     name: "Inter Milan",
@@ -169,8 +165,8 @@ export const teams: Team[] = [
     trophies: 46,
     description:
       "Italy's reigning champions, known for defensive discipline and a nerazzurri identity that spans over a century.",
-  }),
-  team({
+  },
+  {
     id: "ac-milan",
     slug: "ac-milan",
     name: "AC Milan",
@@ -186,8 +182,8 @@ export const teams: Team[] = [
     trophies: 50,
     description:
       "Seven-time European champions sharing San Siro with their fiercest rivals, rebuilding around a new coaching project.",
-  }),
-  team({
+  },
+  {
     id: "psg",
     slug: "psg",
     name: "Paris Saint-Germain",
@@ -203,8 +199,8 @@ export const teams: Team[] = [
     trophies: 50,
     description:
       "The dominant club in French football, now a back-to-back European champion under a settled, star-studded core.",
-  }),
-  team({
+  },
+  {
     id: "juventus",
     slug: "juventus",
     name: "Juventus",
@@ -220,10 +216,9 @@ export const teams: Team[] = [
     trophies: 70,
     description:
       "Italy's most decorated club, the Old Lady, built on a defensive tradition it has carried across generations.",
-  }),
+  },
 
-  // ---- Expansion: second wave, bringing every league to four clubs ----
-  team({
+  {
     id: "atletico-madrid",
     slug: "atletico-madrid",
     name: "Atlético Madrid",
@@ -239,8 +234,8 @@ export const teams: Team[] = [
     trophies: 30,
     description:
       "Madrid's other giant — a hard-running, defensively disciplined side that has been La Liga's third force for over a decade.",
-  }),
-  team({
+  },
+  {
     id: "athletic-club",
     slug: "athletic-club",
     name: "Athletic Club",
@@ -256,8 +251,8 @@ export const teams: Team[] = [
     trophies: 35,
     description:
       "The Basque club with a famous homegrown-talent policy, still a regular among Spain's best and a cup-competition specialist.",
-  }),
-  team({
+  },
+  {
     id: "bayer-leverkusen",
     slug: "bayer-leverkusen",
     name: "Bayer Leverkusen",
@@ -273,8 +268,8 @@ export const teams: Team[] = [
     trophies: 6,
     description:
       "The unbeaten Bundesliga champions of 2023/24 — a pressing, possession-driven side that ended Bayern's long run of titles.",
-  }),
-  team({
+  },
+  {
     id: "rb-leipzig",
     slug: "rb-leipzig",
     name: "RB Leipzig",
@@ -290,8 +285,8 @@ export const teams: Team[] = [
     trophies: 3,
     description:
       "The youngest club in the arena, founded in 2009 and built for high-intensity, counter-pressing football.",
-  }),
-  team({
+  },
+  {
     id: "napoli",
     slug: "napoli",
     name: "Napoli",
@@ -307,8 +302,8 @@ export const teams: Team[] = [
     trophies: 14,
     description:
       "Southern Italy's pride and a recent Serie A champion, playing in the stadium named after Diego Maradona.",
-  }),
-  team({
+  },
+  {
     id: "marseille",
     slug: "marseille",
     name: "Olympique de Marseille",
@@ -324,8 +319,8 @@ export const teams: Team[] = [
     trophies: 25,
     description:
       "France's only Champions League winner, with one of Europe's loudest stadiums behind it.",
-  }),
-  team({
+  },
+  {
     id: "monaco",
     slug: "monaco",
     name: "AS Monaco",
@@ -341,8 +336,8 @@ export const teams: Team[] = [
     trophies: 18,
     description:
       "The principality's club — eight league titles and a proven talent factory.",
-  }),
-  team({
+  },
+  {
     id: "lyon",
     slug: "lyon",
     name: "Olympique Lyonnais",
@@ -358,8 +353,8 @@ export const teams: Team[] = [
     trophies: 20,
     description:
       "Seven straight league titles in the 2000s, and still one of Europe's best academies.",
-  }),
-  team({
+  },
+  {
     id: "benfica",
     slug: "benfica",
     name: "SL Benfica",
@@ -375,8 +370,8 @@ export const teams: Team[] = [
     trophies: 80,
     description:
       "Portugal's most successful club and a two-time European champion, with a huge global following.",
-  }),
-  team({
+  },
+  {
     id: "porto",
     slug: "porto",
     name: "FC Porto",
@@ -392,8 +387,8 @@ export const teams: Team[] = [
     trophies: 70,
     description:
       "The northern powerhouse and two-time European champion, known for a ruthless, well-organised identity.",
-  }),
-  team({
+  },
+  {
     id: "sporting-cp",
     slug: "sporting-cp",
     name: "Sporting CP",
@@ -409,8 +404,8 @@ export const teams: Team[] = [
     trophies: 55,
     description:
       "The Lions of Lisbon — recent league champions with the Alcochete academy at the heart of the club.",
-  }),
-  team({
+  },
+  {
     id: "sc-braga",
     slug: "sc-braga",
     name: "SC Braga",
@@ -426,7 +421,7 @@ export const teams: Team[] = [
     trophies: 6,
     description:
       "The Minho club and the best-organised challenger to Portugal's big three, a regular in European competition.",
-  }),
+  },
 ];
 
 export function getTeamBySlug(slug: string): Team | undefined {

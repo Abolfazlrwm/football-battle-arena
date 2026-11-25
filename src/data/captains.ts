@@ -1,5 +1,4 @@
 import type { Captain } from "@/types";
-import { captainPortraitImage } from "./images";
 import { getTeamById } from "./teams";
 
 /**
@@ -8,19 +7,18 @@ import { getTeamById } from "./teams";
  * IMPORTANT: captaincies change season to season (armbands get
  * reassigned after departures, injuries, or a new manager's decision).
  * Each of these was checked against current reporting for the 2026/27
- * season rather than assumed from memory — see the master spec's
- * INITIAL TEAMS note. If a captain has changed since, update the
- * `position`/`number`/`nationality` fields here; nothing elsewhere in
- * the app hard-codes a captain's name.
+ * season rather than assumed from memory. If a captain has changed
+ * since, update the `position`/`number`/`nationality` fields here;
+ * nothing elsewhere in the app hard-codes a captain's name.
  *
  * `rating` and `stats` are the arena's own illustrative attribute
  * ratings (see the CaptainStats type doc) — not an official FIFA-style
  * rating.
  */
-function captain(c: Omit<Captain, "image">): Captain {
+function captain(c: Captain): Captain {
   const team = getTeamById(c.teamId);
   if (!team) throw new Error(`captains.ts: unknown teamId "${c.teamId}"`);
-  return { ...c, image: captainPortraitImage(c, team) };
+  return c;
 }
 
 export const captains: Captain[] = [
@@ -174,7 +172,6 @@ export const captains: Captain[] = [
     bio: "A boyhood Juventus fan turned club captain, the deep-lying midfielder who controls tempo from the base of the team.",
   }),
 
-  // ---- Expansion: second wave (each captain checked against 2026/27 sources) ----
   captain({
     id: "koke",
     slug: "koke",

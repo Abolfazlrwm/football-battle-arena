@@ -8,7 +8,7 @@ export interface TeamColors {
 /**
  * The arena's own 0–100 comparison ratings — not an official club
  * strength index. Used to drive stat bars and the battle comparison
- * system (Phases 05/11/12).
+ * system.
  */
 export interface TeamStats {
   overall: number;
@@ -35,10 +35,6 @@ export interface Team {
   founded: number;
   stadium: string;
   colors: TeamColors;
-  /** Placeholder image URL — see /data/images.ts. */
-  logo: string;
-  /** Placeholder image URL — see /data/images.ts. */
-  heroImage: string;
   /** References Captain.id in /data/captains.ts. */
   captainId: string;
   formation: Formation;
