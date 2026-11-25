@@ -35,8 +35,8 @@ instead of an AI judge.
 
 - Next.js (App Router) + TypeScript
 - Tailwind CSS
-- Framer Motion / Motion (animation — added in Phase 05)
-- Lucide React (icons — added in Phase 03)
+- Motion (animation)
+- Lucide React (icons)
 
 ## Project structure
 
@@ -44,21 +44,22 @@ instead of an AI judge.
 src/
   app/            Routes (App Router)
   components/
-    layout/       Shells, footer, page-level wrappers
-    navigation/    Navbar, mobile menu
-    hero/          Captain hero engine
-    teams/         Team cards, directory, detail
-    captains/      Captain gallery, detail
-    battles/       Battle comparison system
-    rankings/      Rankings table
-    ui/            Reusable primitives (buttons, badges, cards)
-  data/            Centralized team/captain/ranking/battle data
-  lib/             Utilities
-  types/           Shared TypeScript types
-  hooks/           Shared React hooks
+    layout/       Footer
+    navigation/   Navbar, mobile menu
+    hero/         Captain hero engine
+    teams/        Team cards, directory, detail
+    captains/     Captain gallery, detail
+    battles/      Battle comparison system
+    rankings/     Rankings table
+    ui/           Reusable primitives (buttons, badges, cards)
+  data/           Centralized team/captain/ranking/battle data
+  lib/            Utilities
+  types/          Shared TypeScript types
 ```
 
 ## Running locally
+
+Requires Node.js 20.9+.
 
 ```bash
 npm install
@@ -73,11 +74,12 @@ Open http://localhost:3000.
 npm run build
 ```
 
-## Development plan
+## How it was built
 
-This project was built in 20 reviewable phases (foundation → design
-system → navigation → data model → hero → ... → final QA), one commit per
-phase — all 20 are complete and shipped as v3.
+The project evolved through a series of reviewable milestones (foundation →
+design system → navigation → data model → hero → ... → final QA), each one
+landing only after lint, tests and a production build passed. See
+[CHANGELOG.md](CHANGELOG.md) for the release history.
 
 ## Testing
 
@@ -124,7 +126,7 @@ confirmed team sheets. To add a shape, add it to `FORMATION_LAYOUTS` and the
 on the near-black page — Tailwind: `text-accent-readable`, `bg-accent-readable`),
 `--accent-strong`, `--accent-soft`, `--accent-contrast`.
 
-## Leagues, clubs & features (v3)
+## Leagues, clubs & features
 
 **24 clubs across 6 leagues, four each** — Premier League, La Liga, Bundesliga, Serie A,
 Ligue 1, Primeira Liga. Clubs live in `src/data/teams.ts`, captains in
