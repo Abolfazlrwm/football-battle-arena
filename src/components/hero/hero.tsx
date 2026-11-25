@@ -18,8 +18,7 @@ const DEFAULT_TEAM_ID = "real-madrid";
 /**
  * The cinematic hero: pick a team, its captain becomes the visual
  * subject, --accent re-themes the whole panel through the cascade (see
- * /lib/color.ts), and the switch animates rather than jump-cuts (see
- * the master spec's HERO INTERACTION section).
+ * /lib/color.ts), and the switch animates rather than jump-cuts.
  */
 export function Hero() {
   const [selectedId, setSelectedId] = useState(DEFAULT_TEAM_ID);

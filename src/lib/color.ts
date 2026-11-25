@@ -2,7 +2,7 @@ import type { TeamColors } from "@/types";
 
 /**
  * Turns a team's brand colors into a usable --accent system (see the
- * accent architecture in globals.css from Phase 02). Real club colors
+ * accent architecture in globals.css). Real club colors
  * vary wildly in lightness — Real Madrid's primary is white, Juventus's
  * is black, Inter's is a near-black navy — so picking the "wrong" one
  * verbatim can produce an accent that's invisible against the arena's

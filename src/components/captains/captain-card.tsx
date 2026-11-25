@@ -8,9 +8,8 @@ import { CaptainPortrait } from "./captain-portrait";
 
 /**
  * Gallery card for /captains and the "related" strip on team detail
- * pages. Portrait crop, hover zoom (see master spec's CAPTAINS
- * section: "Hover: image becomes larger"), themed with the captain's
- * own club accent.
+ * pages. Portrait crop with a hover zoom, themed with the captain's own
+ * club accent.
  */
 export function CaptainCard({ captain }: { captain: Captain }) {
   const team = getTeamById(captain.teamId);

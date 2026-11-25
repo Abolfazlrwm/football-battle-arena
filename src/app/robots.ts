@@ -8,8 +8,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // The design-system reference page is a dev tool, not product
-        // surface — see its own noindex metadata in Phase 02.
+        // The design-system reference page is a dev tool, not a product
+        // surface — the page itself also carries noindex metadata.
         disallow: ["/design-system"],
       },
     ],

@@ -3,8 +3,8 @@ import { teams } from "./teams";
 
 /**
  * Rankings are derived from each team's arena `stats.overall` rating —
- * they are the site's own comparison ranking (see the master spec's
- * RANKINGS section), not an official league table or world ranking.
+ * they are the site's own comparison ranking, not an official league
+ * table or world ranking.
  */
 
 const COUNTRY_REGION: Record<string, RankingRegion> = {
@@ -27,8 +27,3 @@ export const rankings: RankingEntry[] = [...teams]
     teamId: t.id,
     region: regionFor(t.country),
   }));
-
-export function getRankingsByRegion(region: RankingRegion | "All"): RankingEntry[] {
-  if (region === "All") return rankings;
-  return rankings.filter((r) => r.region === region);
-}

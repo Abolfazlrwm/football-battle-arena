@@ -1,9 +1,8 @@
 import type { Battle } from "@/types";
 
 /**
- * Curated matchups for the battle comparison system (Phases 11/12).
- * These are visual stat comparisons, not real match predictions or
- * results — see the master spec's BATTLE SYSTEM section.
+ * Curated matchups for the battle comparison system. These are visual
+ * stat comparisons, not real match predictions or results.
  */
 export const battles: Battle[] = [
   {

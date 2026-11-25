@@ -13,9 +13,7 @@ export interface StatBarProps {
 /**
  * Labeled progress track for ratings and comparisons (attack, defense,
  * midfield, ...). Width transitions on change — respects
- * prefers-reduced-motion via the global rule in globals.css. The number
- * animation (counting up) is added when this is wired to real data in a
- * later phase; this is the static, reusable visual primitive.
+ * prefers-reduced-motion via the global rule in globals.css.
  */
 export function StatBar({
   label,

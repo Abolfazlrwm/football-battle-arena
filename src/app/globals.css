@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
-  Football Battle Arena — Design System (Phase 02)
-  ==================================================
+  Football Battle Arena — Design System
+  =====================================
   Token layers, in order:
     1. Raw values      (:root)          — the actual colors/sizes
     2. Tailwind bridge  (@theme inline)   — exposes tokens as utilities
@@ -15,12 +15,12 @@
   ACCENT ARCHITECTURE
   --------------------
   --accent / --accent-strong / --accent-soft / --accent-contrast are the
-  only four values a future team selector needs to touch. They're plain
-  CSS custom properties, so any ancestor element can override them by
-  setting a `data-accent="<key>"` attribute (or, once real team data
-  exists in Phase 04, inline custom properties per team) — every
-  component that uses bg-accent / text-accent / border-accent picks up
-  the change instantly via the cascade, no JS re-render required.
+  only four values a team switcher needs to touch. They're plain CSS
+  custom properties, so any ancestor element can override them by
+  setting a `data-accent="<key>"` attribute (or inline custom properties
+  per team — see buildAccentVars in /lib/color.ts) — every component
+  that uses bg-accent / text-accent / border-accent picks up the change
+  instantly via the cascade, no JS re-render required.
   Three example palettes below (ember / glacier / verdant) prove the
   mechanism; they are placeholders, not team colors.
 */
@@ -41,7 +41,7 @@
   --arena-line: rgba(244, 245, 247, 0.08);
   --arena-line-strong: rgba(244, 245, 247, 0.16);
 
-  /* ---- Accent (default "house" accent; teams override in later phases) ---- */
+  /* ---- Accent (default "house" accent; team pages override via buildAccentVars) ---- */
   --accent: #4f7cff;
   --accent-readable: #82a2ff;
   --accent-strong: #82a2ff;
@@ -115,7 +115,8 @@
 }
 
 /* Example accent palettes — placeholders proving the swap mechanism.
-   Real per-team accents arrive with the team data model (Phase 04+). */
+   Team pages set their own accent vars inline (see buildAccentVars
+   in /lib/color.ts). */
 [data-accent="ember"] {
   --accent-readable: #ff8a63;
   --accent: #ff5a36;
@@ -309,8 +310,8 @@ h4 {
 }
 
 /* Very faint stadium-floodlight dot grid — used behind the hero captain
-   panel. Kept subtle on purpose (see Phase 05 notes on avoiding
-   "gamey" effects): a texture, not a pattern you're meant to notice. */
+   panel. Kept subtle on purpose: a texture, not a pattern you're meant
+   to notice. */
 .bg-arena-texture {
   background-image: radial-gradient(rgba(244, 245, 247, 0.5) 1px, transparent 1px);
   background-size: 22px 22px;

@@ -6,11 +6,10 @@ import { cx } from "@/lib/cx";
 import { TeamLogo } from "@/components/teams/team-logo";
 
 /**
- * Horizontal, always-scrollable strip (see the master spec's TEAM
- * SELECTOR section: "large cinematic selector" on desktop, "horizontal
- * scroll / snap carousel" on mobile — one implementation serves both,
- * since this many clubs don't comfortably fit on one row at a legible size
- * regardless of viewport).
+ * Horizontal, always-scrollable strip: a large cinematic selector on
+ * desktop, a scroll/snap carousel on mobile — one implementation serves
+ * both, since this many clubs don't comfortably fit on one row at a
+ * legible size regardless of viewport.
  */
 export function TeamSelector({
   teams,

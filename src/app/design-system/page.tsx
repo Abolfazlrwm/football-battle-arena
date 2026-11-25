@@ -48,7 +48,7 @@ export default function DesignSystemPage() {
           <p className="mt-3 max-w-2xl text-body-lg text-arena-mist">
             Tokens and reusable primitives for Football Battle Arena. This
             page is not part of the product surface — it exists so every
-            later phase pulls from the same source of truth.
+            page pulls from the same source of truth.
           </p>
         </div>
       </Container>

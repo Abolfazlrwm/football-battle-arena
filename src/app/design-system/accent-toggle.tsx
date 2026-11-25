@@ -15,7 +15,7 @@ const palettes = [
  * Proves the team-accent architecture: every primitive below reads the
  * --accent custom property, so flipping `data-accent` on the wrapping
  * panel re-themes them instantly — no component re-render, no prop
- * threading. This is the mechanism a future team selector will drive.
+ * threading. The hero's team selector drives the same mechanism.
  */
 export function AccentToggleDemo() {
   const [active, setActive] = useState<(typeof palettes)[number]["key"]>(undefined);

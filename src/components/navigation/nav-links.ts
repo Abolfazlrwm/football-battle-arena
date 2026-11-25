@@ -4,10 +4,8 @@ export interface NavLinkItem {
 }
 
 /**
- * Static route list for the primary nav. Not football data — just the
- * site's information architecture, per the URL structure in the master
- * spec. Several of these routes don't have pages yet (built in later
- * phases); the links exist now so the nav is complete from day one.
+ * Static route list for the primary nav — the site's information
+ * architecture, nothing more.
  */
 export const navLinks: NavLinkItem[] = [
   { label: "Arena", href: "/" },
