@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { simulateMatch } from "@/lib/simulate-match";
+import { simulateKnockout, simulateMatch, simulateMany } from "@/lib/simulate-match";
 import { teams } from "@/data/teams";
 import type { Team } from "@/types";
 
@@ -66,5 +66,82 @@ describe("simulateMatch", () => {
     // Strong team should usually win — without being guaranteed.
     expect(wins).toBeGreaterThan(runs * 0.55);
     expect(wins).toBeLessThan(runs);
+  });
+});
+
+describe("simulateKnockout", () => {
+  it("always names a winner, in every conceivable way a tie can end", () => {
+    for (let i = 0; i < 120; i++) {
+      const r = simulateKnockout(giant, underdog);
+      expect(["regular", "extra-time", "penalties"]).toContain(r.decidedBy);
+      expect([giant.id, underdog.id]).toContain(r.winnerId);
+      // The recorded scoreline must agree with who was declared the winner.
+      const winnerIsA = r.winnerId === giant.id;
+      if (r.decidedBy === "regular") {
+        expect(r.extraTime).toBeNull();
+        expect(r.penalties).toBeNull();
+        expect(winnerIsA ? r.teamAGoals : r.teamBGoals).toBeGreaterThan(
+          winnerIsA ? r.teamBGoals : r.teamAGoals
+        );
+      } else {
+        expect(r.extraTime).not.toBeNull();
+        const et = r.extraTime!;
+        const etAWon = et.a > et.b;
+        // Penalties decide only when extra time ends level.
+        if (r.decidedBy === "extra-time") {
+          expect(et.a).not.toBe(et.b);
+          expect(r.penalties).toBeNull();
+          expect(r.winnerId).toBe(etAWon ? giant.id : underdog.id);
+        } else {
+          expect(et.a).toBe(et.b);
+          const pens = r.penalties!;
+          expect(pens.a).not.toBe(pens.b);
+          expect(r.winnerId).toBe(pens.a > pens.b ? giant.id : underdog.id);
+        }
+      }
+    }
+  });
+
+  it("gives the stronger team the tie-break edge in shootouts", () => {
+    const monster = makeTeam("monster", [99, 99, 99, 99]);
+    const minnow = makeTeam("minnow", [60, 60, 60, 60]);
+    let monsterWins = 0;
+    let shootouts = 0;
+    for (let i = 0; i < 150; i++) {
+      const r = simulateKnockout(monster, minnow);
+      if (r.decidedBy === "penalties") {
+        shootouts += 1;
+        if (r.winnerId === "monster") monsterWins += 1;
+      }
+    }
+    if (shootouts > 5) {
+      expect(monsterWins).toBeGreaterThan(shootouts / 2);
+    }
+  });
+});
+
+describe("simulateMany", () => {
+  it("summarizes exactly as many runs as requested", () => {
+    const odds = simulateMany(giant, underdog, 300);
+    expect(odds.runs).toBe(300);
+  });
+
+  it("reports outcome percentages that account for every run", () => {
+    const odds = simulateMany(giant, underdog, 200);
+    expect(odds.aWinPct + odds.drawPct + odds.bWinPct).toBeCloseTo(100);
+    expect(odds.aWinPct).toBeGreaterThan(odds.bWinPct); // giant favored
+    expect(odds.avgGoalsA).toBeGreaterThanOrEqual(0);
+    expect(odds.avgGoalsB).toBeGreaterThanOrEqual(0);
+  });
+
+  it("returns at most five scorelines, ordered by frequency", () => {
+    const odds = simulateMany(giant, underdog, 400);
+    expect(odds.topScorelines.length).toBeGreaterThan(0);
+    expect(odds.topScorelines.length).toBeLessThanOrEqual(5);
+    const pcts = odds.topScorelines.map((s) => s.pct);
+    for (let i = 1; i < pcts.length; i++) {
+      expect(pcts[i]).toBeLessThanOrEqual(pcts[i - 1]);
+    }
+    expect(odds.topScorelines[0].score).toMatch(/^\d+–\d+$/);
   });
 });
