@@ -16,7 +16,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "verify": "npm run lint && npm run typecheck && npm run test:coverage"
+    "verify": "npm run lint && npm run typecheck && npm run test:coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fontsource/big-shoulders-display": "^5.3.0",
@@ -36,6 +37,8 @@
     "@vitest/coverage-v8": "^4.1.12",
     "eslint": "^10",
     "eslint-config-next": "16.4.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.2",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.12"
@@ -44,5 +47,10 @@
     "@typescript-eslint/typescript-estree": {
       "minimatch": "^11.0.1"
     }
+  },
+  "lint-staged": {
+    "*.{js,mjs,ts,mts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }
