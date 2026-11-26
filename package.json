@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "predev": "node scripts/gen-logo-manifest.mjs",
     "prebuild": "node scripts/gen-logo-manifest.mjs",
     "test": "vitest run",
