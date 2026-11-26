@@ -1,7 +1,8 @@
 # Football Battle Arena
 
 [![CI](https://github.com/Abolfazlrwm/football-battle-arena/actions/workflows/ci.yml/badge.svg)](https://github.com/Abolfazlrwm/football-battle-arena/actions/workflows/ci.yml)
-[![tests](https://img.shields.io/badge/tests-22%20passing-brightgreen)](#testing)
+[![CodeQL](https://github.com/Abolfazlrwm/football-battle-arena/actions/workflows/codeql.yml/badge.svg)](https://github.com/Abolfazlrwm/football-battle-arena/actions/workflows/codeql.yml)
+[![tests](https://img.shields.io/badge/tests-88%20unit%20·%208%20e2e-brightgreen)](#testing)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -83,17 +84,25 @@ landing only after lint, tests and a production build passed. See
 
 ## Testing
 
-Unit tests (Vitest) cover the core logic — the battle verdict math, the
-Poisson match simulator, the season table and the classname utility:
+Unit tests (Vitest) cover the pure core — the battle verdict math, the
+Poisson match simulator and knockout odds, the tournament bracket, the
+accent-color system, formation geometry, the search index, the season
+table, and the datasets themselves (unique slugs, two-way references,
+on-disk logos, the generated manifest):
 
 ```bash
-npm test          # 22 tests
-npm run lint      # ESLint
-npm run build     # production build
+npm test               # 88 unit tests
+npm run test:coverage  # same suite, gated by coverage thresholds (~97% stmts)
+npm run lint           # ESLint
+npm run typecheck      # tsc --noEmit
+npm run build          # production build
+npm run test:e2e       # 8 Playwright smoke tests (build first)
 ```
 
-CI (`.github/workflows/ci.yml`) runs lint + tests + build on every push and
-pull request.
+CI (`.github/workflows/ci.yml`) runs lint, typecheck, coverage-gated unit
+tests, the production build, and the e2e suite as parallel jobs on every
+push and pull request. CodeQL scans the codebase weekly, and new
+dependencies on PRs go through dependency review.
 
 ## Visual assets
 

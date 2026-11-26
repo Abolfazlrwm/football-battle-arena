@@ -21,15 +21,20 @@ rules that keep it healthy. Please read this before opening a pull request.
 The site is a Next.js (App Router) + TypeScript app:
 
 ```bash
-npm ci
-npm run dev        # local dev server
-npm run lint       # eslint
-npm test           # vitest
-npm run build      # production build
+npm ci                 # install exactly what the lockfile pins
+npm run dev            # local dev server
+npm run lint           # eslint
+npm run typecheck      # tsc --noEmit
+npm test               # vitest unit tests
+npm run test:coverage  # unit tests, gated by coverage thresholds
+npm run build          # production build
+npm run test:e2e       # Playwright smoke suite (run `npm run build` first)
+npm run verify         # lint + typecheck + coverage in one go
 ```
 
-Please make sure `lint`, `test` and `build` all pass — CI runs exactly
-these.
+CI runs lint, typecheck, coverage-gated unit tests, the production build,
+and the e2e suite as separate jobs — `npm run verify` covers the first
+three locally if you want a single pre-push check.
 
 ## Ground rules
 
@@ -37,6 +42,20 @@ these.
 - Match the existing code style; don't mix reformatting with functional changes.
 - Write commit messages in the imperative mood, e.g. `fix: handle empty payload`.
 - New dependencies need a justification in the PR description.
+
+## Releases
+
+Releases are tags, not branches. When a version is ready:
+
+1. Update `CHANGELOG.md` with a `## [x.y.z] - YYYY-MM-DD` section describing
+   the notable changes.
+2. Bump `"version"` in `package.json` and commit (e.g. `chore: release v0.3.0`).
+3. Tag and push: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`.
+
+The tag triggers the release workflow (`.github/workflows/release.yml`),
+which re-runs the full verification, builds, and publishes the GitHub
+release with the notes extracted from the CHANGELOG section you wrote —
+so an entry there is what users actually see on the release page.
 
 ## Reporting bugs
 
