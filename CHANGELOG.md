@@ -4,6 +4,44 @@ All notable changes to this project are documented in this file. The
 format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] - 2026-11-26
+
+### Added
+
+- A real quality gate around the codebase: the unit suite grew from 22 to
+  88 tests and is now coverage-gated (~97% statements over the pure lib
+  core, 100% over the datasets). New suites cover the accent-color
+  system, formation geometry, the search index, the tournament bracket,
+  the knockout/odds simulator, and dataset integrity (unique slugs,
+  two-way captain/team links, on-disk logos, the generated manifest
+  matching the data).
+- A Playwright smoke suite — eight checks against the production build
+  covering every route group, a team and captain detail page, and the
+  themed 404.
+- Release automation: pushing a `v*` tag re-runs the full verification,
+  builds, and publishes a GitHub release with notes extracted from the
+  matching CHANGELOG section.
+- Security scanning: CodeQL on push, PR, and a weekly schedule;
+  dependency review on pull requests.
+- A 1200×630 social card (`public/og.png`) wired into the Open Graph and
+  Twitter metadata — link shares previously rendered with no image.
+- Community health files: `SUPPORT.md`, `CODEOWNERS`, an issue-template
+  config that routes questions to Discussions, and `.editorconfig`.
+
+### Changed
+
+- CI's single verify job became parallel, independent gates — lint,
+  typecheck, unit tests, build, e2e — so a lint slip no longer waits
+  behind a full build, and the unit-test job publishes its coverage
+  report as an artifact.
+- `npm run verify` (lint + typecheck + coverage) is the single
+  pre-push check; commits run `eslint --fix` on staged files via husky
+  and lint-staged.
+- tsconfig: `forceConsistentCasingInFileNames`, `noFallthroughCasesInSwitch`
+  and `noImplicitOverride` are on. `noUncheckedIndexedAccess` was
+  evaluated and deliberately deferred — it surfaces ~149 call sites
+  that want guard refactoring, which deserves its own pass.
+
 ## [0.2.0] - 2026-11-25
 
 ### Changed
